@@ -1,0 +1,4 @@
+Het doel is een spel te maken dat lijkt op mario bros.
+Een 2D game waar je parcour hebt, vijandelijke monstertjes die je aanvallen,..
+Ik zou de grafics van minecraft overnemen vermits dit alles gemakkelijker maakt.
+Er zouden meerdere levels zijn.
