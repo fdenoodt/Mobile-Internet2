@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Page Title</title>
+    <style>
+        button{min-width: 3em; min-height: 3em;  margin: 1%;}
+    </style>
+</head>
+
+<body>
+
+    <h1>This is a Heading</h1>
+    <p>This is a paragrapfh.</p>
+
+    <button onclick="telOp(20,30)">Tel op</button>
+    <button onclick="totDeMacht(2,3)">Tot de macht</button>
+
+
+
+    <br><br><br>
+
+
+    <button onclick="voegToe(1)">1</button>
+    <button onclick="voegToe(2)">2</button>
+    <button onclick="voegToe(3)">3</button><br>
+    <button onclick="voegToe(4)">4</button>
+    <button onclick="voegToe(5)">5</button>
+    <button onclick="voegToe(6)">6</button><br>
+    <button onclick="voegToe(7)">7</button>
+    <button onclick="voegToe(8)">8</button>
+    <button onclick="voegToe(9)">9</button><br>
+    <button onclick="voegToe(0)">0</button>
+    <button onclick="plus()">+</button>
+    <button onclick="uitkomst()">=</button>
+
+    <div id = "output">
+
+    </div>
+
+
+    <script>
+        function telOp(getal1, getal2) {
+            document.write(getal1 + getal2);
+        }
+
+        function totDeMacht(getal1, getal2) {
+            console.log(getal1 + " " + getal2);
+            document.write(Math.pow(getal1, getal2));
+        }
+
+        //calculator
+        var vorigeGetal = "";
+        var huidigeGetal = "";
+        function voegToe(getal) {
+            huidigeGetal += getal;
+            document.getElementById("output").innerHTML = huidigeGetal;
+           // document.getElementById("output").innerHTML = huidigeGetal;
+            //console.log(huidigeGetal);
+        }
+
+        function plus(){
+            vorigeGetal = huidigeGetal;
+            huidigeGetal = "";
+
+        }
+
+        function uitkomst(){
+            
+            document.getElementById("output").innerHTML= parseInt(vorigeGetal) + parseInt(huidigeGetal);
+            vorigeGetal = huidigeGetal;
+            huidigeGetal = toString(parseInt(vorigeGetal) + parseInt(huidigeGetal));
+
+        }
+
+    </script>
+</body>
+
+</html>
