@@ -66,10 +66,11 @@
         }
 
         function uitkomst(){
-            
-            document.getElementById("output").innerHTML= parseInt(vorigeGetal) + parseInt(huidigeGetal);
-            vorigeGetal = huidigeGetal;
-            huidigeGetal = toString(parseInt(vorigeGetal) + parseInt(huidigeGetal));
+            var uitkomst = parseInt(vorigeGetal) + parseInt(huidigeGetal);
+            document.getElementById("output").innerHTML= uitkomst;
+            var uitkomst = ""+uitkomst;
+            huidigeGetal = uitkomst;
+            //alert(typeof(uitkomst));
 
         }
 
