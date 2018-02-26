@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Page Title</title>
+</head>
+<style>
+    .black {
+        width: 100px;
+        background-color: black;
+        height: 100px;
+        position: absolute;
+
+    }
+
+    .white {
+        width: 100px;
+        background-color: white;
+        height: 100px;
+        position: absolute;
+
+    }
+</style>
+
+<body>
+
+    <div id="output">
+        <!-- <div class="black"></div> -->
+        <!-- <div class="white"></div> -->
+    </div>
+
+
+    <script>
+        var kleur;
+        var extraLeft;
+        for (var rij = 0; rij < 10; rij++) {
+            rij % 2 == 0 ? extraLeft = 100 : extraLeft = 0;
+            for (var index = 0; index < 10; index++) {
+
+                index % 2 == 0 ? kleur = "white" : kleur = "black";
+                document.getElementById("output").innerHTML += 
+                `<div class =  ${kleur} style='left:${index * 100 + extraLeft}px; top:${rij * 100}px'></div>`;
+
+            }
+        }
+    </script>
+</body>
+
+</html>
