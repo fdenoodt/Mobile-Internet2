@@ -5,25 +5,30 @@
     <title>Page Title</title>
 </head>
 <style>
+    body {
+        background-color: orange
+    }
+
     .black {
-        width: 100px;
+        width: 50px;
         background-color: black;
-        height: 100px;
+        height: 50px;
         position: absolute;
 
     }
 
     .white {
-        width: 100px;
+        width: 50px;
         background-color: white;
-        height: 100px;
+        height: 50px;
         position: absolute;
 
     }
 </style>
 
 <body>
-
+    <input id="inp_aantal" type="text">
+    <button onclick="toonDambord()">toon dambord</button>
     <div id="output">
         <!-- <div class="black"></div> -->
         <!-- <div class="white"></div> -->
@@ -31,18 +36,25 @@
 
 
     <script>
-        var kleur;
-        var extraLeft;
-        for (var rij = 0; rij < 10; rij++) {
-            rij % 2 == 0 ? extraLeft = 100 : extraLeft = 0;
-            for (var index = 0; index < 10; index++) {
+        function toonDambord() {
+            var aantal = document.getElementById("inp_aantal").value;
+            var kleur;
+            var extraLeft;
+            for (var rij = 0; rij < aantal; rij++) {
+                //rij % 2 == 0 ? extraLeft = 50 : extraLeft = 0;
+                for (var index = 0; index < aantal; index++) {
 
-                index % 2 == 0 ? kleur = "white" : kleur = "black";
-                document.getElementById("output").innerHTML += 
-                `<div class =  ${kleur} style='left:${index * 100 + extraLeft}px; top:${rij * 100}px'></div>`;
+                    index+rij % 2 == 0 ? kleur = "white" : kleur = "black";
+                    document.getElementById("output").innerHTML +=
+                        //`<div class =  ${kleur} style='left:${index * 50 + extraLeft}px; top:${rij * 50 + 50}px'></div>`;
+                        `<div class =  ${kleur} style='left:${index * 50}px; top:${rij * 50 + 50}px'></div>`;
 
+                }
             }
         }
+
+
+
     </script>
 </body>
 
