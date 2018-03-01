@@ -1,0 +1,88 @@
+<style>
+    #mario {
+        width: 45px;
+        position: absolute;
+    }
+    
+    body{margin: 0; padding: 0;}
+
+/*    #output{
+        left: -100px;
+    }*/
+</style>
+
+
+<script>
+    var marioLeft;
+    var marioBottom;
+    var marioImg;
+
+    function zetAllesOpPlaats() {
+        marioLeft = 300;
+        marioBottom = 100;
+        document.getElementById("entities").innerHTML += "<img id='mario' src='entities/mario.png'>";
+        updateMario();
+        startTimer();
+
+
+
+        for (var i = 11; i <= 50; i++) {
+            document.getElementById("output").innerHTML += "<img src='blocks/grass_side.png' style='width: 50px; position: absolute; bottom: 0; left:" + i * 50 + ";'>";
+        }
+    }
+
+    function updateMario() {
+        document.getElementById("mario").style.left = marioLeft;
+        document.getElementById("mario").style.bottom = marioBottom;
+
+    }
+
+    var myVar;
+
+    function startTimer() {
+        myVar = setInterval(updateWorld, 5);
+    }
+    
+    var xCamera = 0;
+    function updateWorld() {
+        xCamera--;
+       document.getElementById("output").style.left = xCamera;
+    }
+
+</script>
+
+<body onload="zetAllesOpPlaats()">
+
+    <div style="position: relative; width: 100%; height: 100vh; background-color: lightblue; overflow: hidden;">
+        <div id="output" style="position: absolute;height: 100vh;">
+            <img src="blocks/grass_side.png" style="width: 50px; position: absolute; bottom: 0; left: 0;">
+            <img src="blocks/grass_side.png" style="width: 50px; position: absolute; bottom: 0; left: 50px;">
+            <img src="blocks/grass_side.png" style="width: 50px; position: absolute; bottom: 0; left: 100px;">
+            <img src="blocks/grass_side.png" style="width: 50px; position: absolute; bottom: 0; left: 150px;">
+            <img src="blocks/grass_side.png" style="width: 50px; position: absolute; bottom: 50; left: 200px;">
+            <img src="blocks/dirt.png" style="width: 50px; position: absolute; bottom: 0; left: 200px;">
+            <img src="blocks/grass_side.png" style="width: 50px; position: absolute; bottom: 50; left: 250px;">
+            <img src="blocks/dirt.png" style="width: 50px; position: absolute; bottom: 0; left: 250px;">
+            <img src="blocks/grass_side.png" style="width: 50px; position: absolute; bottom: 50; left: 300px;">
+            <img src="blocks/dirt.png" style="width: 50px; position: absolute; bottom: 0; left: 300px;">
+
+            <img src="blocks/grass_side.png" style="width: 50px; position: absolute; bottom: 100; left: 350px;">
+
+            <img src="blocks/dirt.png" style="width: 50px; position: absolute; bottom: 50; left: 350px;">
+            <img src="blocks/dirt.png" style="width: 50px; position: absolute; bottom: 0; left: 350px;">
+
+            <img src="blocks/grass_side.png" style="width: 50px; position: absolute; bottom: 50; left: 400px;">
+            <img src="blocks/dirt.png" style="width: 50px; position: absolute; bottom: 0; left: 400px;">
+
+            <img src="blocks/grass_side.png" style="width: 50px; position: absolute; bottom: 0; left: 450;">
+            <img src="blocks/grass_side.png" style="width: 50px; position: absolute; bottom: 0; left: 500px;">
+
+
+
+        </div>
+
+        <div id="entities" style="position: absolute; width: 100%; height: 100vh;">
+
+        </div>
+    </div>
+</body>
