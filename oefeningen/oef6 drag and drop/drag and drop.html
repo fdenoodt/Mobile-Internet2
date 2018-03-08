@@ -1,0 +1,45 @@
+<div style="height: 300px; width: 32.67%; border: solid 0.31em; black; background-color: red; float: left;" id="veld1" ondrop="drop(event, 1)" ondragover="allowDrop(event)">
+</div>
+<div style="height: 300px; width: 32.67%; border: solid 0.31em; black; background-color: blue; float: right;" id="veld2" ondrop="drop(event, 3)" ondragover="allowDrop(event)">
+</div>
+<div style="height: 300px; width: 32.67%; border: solid 0.31em; black; background-color: green; float: right;" id="veld2" ondrop="drop(event, 2)" ondragover="allowDrop(event)">
+</div>
+
+
+<img id="1"class="img1" src="r.jpg" draggable="true" ondragstart="drag(event)">
+<img id="2" src="g.jpg" draggable="true" ondragstart="drag(event)">
+<img id="3" src="b.jpg" draggable="true" ondragstart="drag(event)">
+
+
+<script>
+    function drag(test) {
+        test.dataTransfer.setData("text", test.target.id);
+    }
+
+    function drop(test2, welkeAanvaarden) {
+
+        test2.preventDefault();
+        var data = test2.dataTransfer.getData("text");
+
+        if (data == welkeAanvaarden) {
+            test2.target.appendChild(document.getElementById(data));
+            document.getElementById(welkeAanvaarden).style.width = "auto";
+            document.getElementById(welkeAanvaarden).style.maxWidth = "100%";
+            document.getElementById(welkeAanvaarden).style.height = "auto";
+            document.getElementById(welkeAanvaarden).style.maxHeight = "100%";
+            
+            
+        } else {
+            alert("Fout");
+        }
+
+    }
+
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+</script>
+
+
+<style>img {width: 30%}</style>
