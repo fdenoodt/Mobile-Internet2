@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Page Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <div id="output">
+
+    </div>
+
+
+
+    <script>
+        $(document).ready(function () {
+
+            //document.getElementById("#output").append("ofdfd");
+            $("#output").load(
+                "test.txt", function (responseTxt, statusTxt, xhr) {
+                    //alert(responseTxt + " - " + statusTxt + " - " + xhr);
+                }
+            );
+
+
+
+
+            //$("#output").load("http://ophalvens.net/mi2/les7/voorbeeld_ajax.1-data.php");
+
+            $.ajax({
+                type : "GET",
+                url : "http://ophalvens.net/mi2/les7/voorbeeld_ajax.1-data.php",
+              
+                dataType : "html",
+                success : verwerkJSON 
+            });
+
+
+
+            
+        })
+
+
+         function verwerkJSON(response) {
+                			   
+					//adres = response.results[i];
+					$("#output").text(response);
+					
+				
+			}
+
+
+
+        $.ajax({
+            type : "GET",
+            url : "http://ophalvens.net/mi2/les7/json/adres-2.json.php",
+            dataType : "json",
+            success : verwerkJSON2
+        });
+
+
+        function verwerkJSON2(response){
+            var i, adres;
+            for(i = 0; i < response.results.length; i++){
+                adres = response.results[i];
+                alert(adres.formatted_address);
+            }
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Les 4 : voorbeeld 5 : data - fouten opvangen</title>
+		<meta name="description" content="" />
+		<meta name="author" content="Steven" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<script src="js/jquery-3.1.1.min.js"></script>
+		<script>
+            "use strict";
+            /*global $ */
+
+            function laadSatelliet() {
+				// haal de bron binnen en plaats die in het juiste element
+				
+					// foute url : om de fout afhandeling te testen.
+				$("#satellietbeeld").load("http://ophalvens.net/mi2/les7/voorbeeld_onbestaand_bestand.php #databron",
+					function (responseText, statusText, xhr) {
+						if (statusText === "error") {
+							// er is een probleem
+							$("#error").text("Er is een fout opgetreden: " +
+							     xhr.status +
+							     " " + xhr.statusText);
+						} else {
+							$("#error").text("");
+						}
+				    });
+				// geef de tijd weer in de pagina
+				$("#tijd").html(new Date().toLocaleTimeString());
+			}
+
+			$(function () {
+				// we tonen eerst een "spinner" die toont dat het element geladen wordt.
+				// Dit kan je enkel testen als de verbinding trager is. Bij snellere
+				// verbindingen ga je dit niet zien
+				// Doordat in dit voorbeeld het databestand niet gevonden wordt,
+				// en we de loading image niet aanpassen, kan je deze wel zien.
+				// Een betere oplossing zou zijn dat wanneer je een html error opvangt,
+				// je ook die loading image aanpast (404 bvb).
+				$("#satellietbeeld").html("<img src='img/loading.gif' alt='laden' style='background-color:#000;'>");
+
+				// we roepen de functie al op bij het laden van de pagina, zodat
+				// we zeker zijn dat de inhoud al wordt weergegeven en dat we geen
+				// 10s moeten wachten voor de afbeelding voor de eerste keer getoond
+				// wordt.
+				
+				laadSatelliet();
+				
+				// zorg dat de bron automatisch om de 10s wordt geladen
+				setInterval(laadSatelliet, 10 * 1000);
+				/* setInterval : standaard javascript methode met 2 parameters :
+				 * - de eerste : de functie die moet aangeroepen worden
+				 * - de tweede : de interval (wachttijd) tussen 2 aanroepen van
+				 *               deze functie
+				 */
+
+			});
+			
+
+		</script>
+	</head>
+
+	<body>
+		<div>
+			<header> <h1>jQuery -  automatisch data laden</h1></header>
+			<section>
+				<article>
+					<p>
+						Informatie uit de andere pagina :
+						<br>
+						<div id="error" style="color:#d00;"> </div>
+						<br>
+						Opgehaald om : <span id="tijd"> </span>
+					</p>
+					<div id="satellietbeeld">
+
+					</div>
+				</article>
+			</section>
+
+			<footer>
+				<p>
+					&copy; Copyright  by Steven
+				</p>
+			</footer>
+		</div>
+	</body>
+</html>

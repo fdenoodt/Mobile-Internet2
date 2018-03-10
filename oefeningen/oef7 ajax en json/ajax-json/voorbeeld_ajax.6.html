@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+		<title>Les 4 : voorbeeld 6 : JSON</title>
+		<meta name="description" content="" />
+		<meta name="author" content="Steven" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<script src="js/jquery-3.1.1.min.js"></script>
+		<script>
+            "use strict";
+            /*global $ */
+
+            function verwerkJSON(response) {
+			    // het volgende is niet meer nodig, omdat response al geparsed is voor
+			    // het naar de success callback handler wordt gestuurd
+				//var resultaat = $.parseJSON(response);
+                var i, adres;
+				for (i = 0; i < response.results.length; i += 1) {
+				   // LET OP ! Kijk naar het JSON bestand en zie waar de naam 'results'
+				   // voorkomt. In de lijn hierboven staat 'results' omdat dat zo in
+				   // het json bestand staat! Dit is geen afspraak, en hangt af van de
+				   // bron die je importeert.
+				   
+					adres = response.results[i];
+					$("#plaats").text(adres.formatted_address);
+					$("#lat").text(adres.geometry.location.lat);
+					$("#lng").text(adres.geometry.location.lng);
+				}
+			}
+
+			$(function () {
+				// de JSON data ophalen
+				$.ajax({
+					type : 'GET',
+					url : 'http://ophalvens.net/mi2/les7/json/adres-2.json.php',
+					dataType : 'json',
+					success : verwerkJSON
+				});
+				// let op : success is met 2 C's en 2 S'en ...
+
+			});
+
+			
+		</script>
+	</head>
+
+	<body>
+		<div>
+			<header>
+				<h1>jQuery - automatisch data laden</h1>
+			</header>
+			<section>
+				<article>
+					<table id="adres">
+						<thead>
+							<tr>
+								<th>Plaats</th>
+								<th>Latitude</th>
+								<th>Longitude</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td id="plaats"></td>
+								<td id="lat"></td>
+								<td id="lng"></td>
+							</tr>
+						</tbody>
+					</table>
+				</article>
+			</section>
+
+		</div>
+	</body>
+</html>
