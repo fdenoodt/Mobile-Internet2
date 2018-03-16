@@ -1,0 +1,11 @@
+r: 2x1-9
+b: 2x1-9
+gr: 2x1-9
+ge: 2x1-9
+
+0 van elke kleur: 1x
+
++4 kaarten (4)
++2: 2 van elke kleur
+switches van elke kleur (2)
+block: 2 van elke kleur
