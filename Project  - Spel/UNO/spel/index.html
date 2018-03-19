@@ -9,7 +9,7 @@
     <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 
-<body onload="verdeelKaarten();maakStapel()">
+<body onload="verdeelKaarten();maakStapel();mengKaarten();">
 
     <div id="map">
         <!-- <div class="lol" style="color: black;">
@@ -20,21 +20,23 @@
 
     <script>
         var map = document.getElementById("map");
+        
+        var kaartenVanSpelers = [];
 
-        var kaartenSpeler1 = [];
-        var kaartenSpeler2 = [];
-        var kaartenSpeler3 = [];
-        var kaartenSpeler4 = [];
+        // var kaartenSpeler1 = [];
+        // var kaartenSpeler2 = [];
+        // var kaartenSpeler3 = [];
+        // var kaartenSpeler4 = [];
         var wieZijnBeurt;
 
-        
+
 
         var stapel = [
-           // ["1", "rood"]
+            // ["1", "rood"]
         ];
         var geplaatsteKaarten = [];
 
-        function maakStapel(){
+        function maakStapel() {
             voegKaartenToeAanStapel1tot9("rood");
             voegKaartenToeAanStapel1tot9("rood");
 
@@ -48,36 +50,55 @@
             voegKaartenToeAanStapel1tot9("blauw");
         }
 
-        function voegKaartenToeAanStapel1tot9(kleur){
-            for(var i = 1; i<10; i++){
-            stapel[stapel.length] = new Array(2);
-            stapel[stapel.length-1][0] = i+"";
-            stapel[stapel.length-1][1] = kleur;
+        function voegKaartenToeAanStapel1tot9(kleur) {
+            for (var i = 1; i < 10; i++) {
+                stapel[stapel.length] = new Array(2);
+                stapel[stapel.length - 1][0] = i + "";
+                stapel[stapel.length - 1][1] = kleur;
+            }
+        }
+
+        function mengKaarten() {
+            var j, x, i;
+            for (i = stapel.length - 1; i > 0; i--) {
+                j = Math.floor(Math.random() * (i + 1));
+                x = stapel[i];
+                stapel[i] = stapel[j];
+                stapel[j] = x;
             }
         }
 
 
-
-        function verdeelKaarten() {
-            for (var i = 1; i <= 7; i++) {
-                var waarde = Math.floor((Math.random() * 9) + 1); //tot 9
-                var kleur = Math.floor((Math.random() * 4) + 1);
-
-                if (kleur == 1) {
-                    kleur = "rood";
+        function verdeelKaarten(){
+            //kaarten aan 4 mensen
+            for(var i = 0; i<4; i++){
+                for(var i = 0; i< 7;i++){
+                    kaartenVanSpelers[i] = new Array(7);
                 }
-                else if (kleur == 2) {
-                    kleur = "groen";
-                }
-                else if (kleur == 3) {
-                    kleur = "geel";
-                } else if (kleur == 4) {
-                    kleur = "blauw";
-                }
-
-                maakKaart(i * 100, 350, kleur, waarde, i);
             }
         }
+
+
+        // function verdeelKaarten() {
+        //     for (var i = 1; i <= 7; i++) {
+        //         var waarde = Math.floor((Math.random() * 9) + 1); //tot 9
+        //         var kleur = Math.floor((Math.random() * 4) + 1);
+
+        //         if (kleur == 1) {
+        //             kleur = "rood";
+        //         }
+        //         else if (kleur == 2) {
+        //             kleur = "groen";
+        //         }
+        //         else if (kleur == 3) {
+        //             kleur = "geel";
+        //         } else if (kleur == 4) {
+        //             kleur = "blauw";
+        //         }
+
+        //         maakKaart(i * 100, 350, kleur, waarde, i);
+        //     }
+        // }
 
 
 
@@ -115,6 +136,11 @@
             document.getElementById(id).style.left = xMidden;
             document.getElementById(id).style.top = yMidden; //parseInt(top[0])-200
         }
+
+
+
+// stapel.push("test", "test");
+// stapel.pop(0);
 
 
 
