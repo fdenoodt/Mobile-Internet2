@@ -1,0 +1,138 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <title>fdsq</title>
+    <link href="https://fonts.googleapis.com/css?family=Rammetto+One" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link href="style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body onload="verdeelKaarten();maakStapel()">
+
+    <div id="map">
+        <!-- <div class="lol" style="color: black;">
+            <p>fdqs</p>
+        </div> -->
+    </div>
+
+
+    <script>
+        var map = document.getElementById("map");
+
+        var kaartenSpeler1 = [];
+        var kaartenSpeler2 = [];
+        var kaartenSpeler3 = [];
+        var kaartenSpeler4 = [];
+        var wieZijnBeurt;
+
+        
+
+        var stapel = [
+           // ["1", "rood"]
+        ];
+        var geplaatsteKaarten = [];
+
+        function maakStapel(){
+            voegKaartenToeAanStapel1tot9("rood");
+            voegKaartenToeAanStapel1tot9("rood");
+
+            voegKaartenToeAanStapel1tot9("geel");
+            voegKaartenToeAanStapel1tot9("geel");
+
+            voegKaartenToeAanStapel1tot9("groen");
+            voegKaartenToeAanStapel1tot9("groen");
+
+            voegKaartenToeAanStapel1tot9("blauw");
+            voegKaartenToeAanStapel1tot9("blauw");
+        }
+
+        function voegKaartenToeAanStapel1tot9(kleur){
+            for(var i = 1; i<10; i++){
+            stapel[stapel.length] = new Array(2);
+            stapel[stapel.length-1][0] = i+"";
+            stapel[stapel.length-1][1] = kleur;
+            }
+        }
+
+
+
+        function verdeelKaarten() {
+            for (var i = 1; i <= 7; i++) {
+                var waarde = Math.floor((Math.random() * 9) + 1); //tot 9
+                var kleur = Math.floor((Math.random() * 4) + 1);
+
+                if (kleur == 1) {
+                    kleur = "rood";
+                }
+                else if (kleur == 2) {
+                    kleur = "groen";
+                }
+                else if (kleur == 3) {
+                    kleur = "geel";
+                } else if (kleur == 4) {
+                    kleur = "blauw";
+                }
+
+                maakKaart(i * 100, 350, kleur, waarde, i);
+            }
+        }
+
+
+
+        function plaatsKaarten() {
+
+            // maakKaart(300, 350, 'geel', 5, 1);
+            // maakKaart(400, 350, 'rood', 1, 2);
+            // maakKaart(500, 350, 'blauw', 9, 3);
+            // maakKaart(600, 350, 'ongekend', 4, 4);
+        }
+
+
+        function maakKaart(x, y, kleur, waarde, id) {
+
+            map.innerHTML += `<div id="${id}" class="kaart ${kleur}" style="left: ${x}; top: ${y};" onclick="kiesKaart(${id++})">
+            <div class="binnenKaart">
+                <span class="kaartNr">${waarde}</span>
+            </div>
+        </div>`;
+        }
+
+        function kiesKaart(id) {
+            verplaatsKaart(id);
+        }
+
+        function verplaatsKaart(id) {
+            var top = document.getElementById(id).style.top.split("p");
+
+            var xMidden = ($(window).width()) / 2 - ($("#" + id).width()) / 2;
+            var yMidden = ($(window).height()) / 2 - ($("#" + id).height()) / 2
+            document.getElementById(id).style.transition = "1s";
+
+
+
+            document.getElementById(id).style.left = xMidden;
+            document.getElementById(id).style.top = yMidden; //parseInt(top[0])-200
+        }
+
+
+
+        // function kaartHover(id){
+        //     $("#"+id).animate({ top: '250px' });
+        // }
+        // function kaartWegHover(id){
+
+        // }
+
+        // $(document).ready(function () {
+        //     $(".kaart").click(function () {
+        //         alert("fdsjqklm");
+        //         $(this).animate({ top: '250px' });
+        //     })
+
+        // })
+    </script>
+</body>
+
+</html>
