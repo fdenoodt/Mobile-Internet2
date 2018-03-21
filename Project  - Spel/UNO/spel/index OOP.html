@@ -1,0 +1,44 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <title>fdsq</title>
+    <link href="https://fonts.googleapis.com/css?family=Rammetto+One" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link href="style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+    <div id="map">
+        <!-- <div class="lol" style="color: black;">
+            <p>fdqs</p>
+        </div> -->
+    </div>
+
+
+    <script>
+        var map = document.getElementById("map");
+
+        function speler(naam){
+            this.naam = naam;
+            this.kaarten = new Array();
+        }
+
+        function kaart(waarde, kleur){
+            this.waarde = waarde;
+            this.kleur = kleur;
+        }
+
+        var speler1 = new speler("Fabian");
+        var kaart1 = new kaart(5, "geel");
+
+        console.log(speler1);
+        speler1.kaarten[0] = kaart1;
+
+
+    </script>
+</body>
+
+</html>
