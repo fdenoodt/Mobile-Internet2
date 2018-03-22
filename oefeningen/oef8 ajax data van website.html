@@ -2,27 +2,58 @@
 <html>
 
 <head>
-    <title>Page Title</title>
+    <title>Get content from singer</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
-    <div id="output">
 
-    </div>
+    <input type="text" id="inp_zanger" placeholder="Zanger naam" value="Justin bieber">
+    <button id="btnToonZanger">Continue</button>
+    <div id="output"></div>
 
 
 </body>
 <script>
     $(document).ready(function () {
-        $.ajax({
-            url: 'http://www.corsproxy.com/' +
-                'en.wikipedia.org/wiki/Briarcliff_Manor,_New_York',
-            type: 'GET',
-            success: function (data) {
-                $('#output').html($(data).find('#firstHeading').html());
-            }
-        });
+
+
+        $("#btnToonZanger").click(function () {
+
+            //alert(document.getElementById("inp_zanger").value);
+
+            var zanger = $("#inp_zanger").val();
+
+
+            $.ajax({
+                url: 'http://www.songsterr.com/a/ra/songs.json?pattern=' + zanger,
+                type: 'GET',
+                success: function (data) {
+
+                    console.log(data);
+                    var output = "";
+                    for (var i = 0; i < data.length; i++) {
+                        output += `<tr><td>${data[i].title}</td><td>${data[i].artist.nameWithoutThePrefix}</td></tr>`;
+                    }
+
+                    console.log(output);
+                    document.getElementById("output").innerHTML = "<table>" + output + "</table>"
+                },
+                error: function (error){
+                    console.log(error.statusText);
+                }
+            });
+
+        })
+
+
+
+
+
+
+
+
+
     })
 
     //.find('#content').html()
