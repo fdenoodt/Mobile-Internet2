@@ -2,42 +2,177 @@
 <html>
 
 <head>
-    <title>fdsq</title>
+    <title>UNO OOP</title>
     <link href="https://fonts.googleapis.com/css?family=Rammetto+One" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 
-<body>
+<body onload="maakSpelGereed()">
 
     <div id="map">
-        <!-- <div class="lol" style="color: black;">
-            <p>fdqs</p>
-        </div> -->
+        <div style="position: absolute; left: 50%;">
+            <!-- <div id="test" value="oi" style="position: relative; left: -50%; border: dotted red 1px;">
+                I am some centered shrink-to-fit content!
+                <br /> tum te tum
+            </div> -->
+        </div>
     </div>
 
 
     <script>
+        "use strict";
         var map = document.getElementById("map");
+        var stapel = new Array();
+        var gebruikteKaarten = new Array();
 
-        function speler(naam){
+
+        function speler(naam) {
             this.naam = naam;
             this.kaarten = new Array();
         }
 
-        function kaart(waarde, kleur){
+        function kaart(waarde, kleur, idee) {
             this.waarde = waarde;
             this.kleur = kleur;
+            this.idee = idee;
         }
 
-        var speler1 = new speler("Fabian");
-        var kaart1 = new kaart(5, "geel");
+        var Fabian = new speler("Fabian");
+        var bot1 = new speler("Bot1");
+        var bot2 = new speler("Bot2");
+        var bot3 = new speler("Bot3");
 
-        console.log(speler1);
-        speler1.kaarten[0] = kaart1;
+
+        stapel[0] = new kaart(9, "geel", 1);
+        stapel[1] = new kaart(1, "blauw", 2);
+        stapel[2] = new kaart(2, "geel", 3);
+        stapel[3] = new kaart(3, "rood", 3);
+        stapel[4] = new kaart(4, "rood", 4);
+        stapel[5] = new kaart(5, "geel", 5);
+        stapel[6] = new kaart(6, "geel", 6);
+        stapel[7] = new kaart(6, "geel", 7);
+        stapel[8] = new kaart(6, "geel", 8);
+        stapel[9] = new kaart(6, "geel", 9);
+        //stapel[10] = new kaart(6, "geel");
+        stapel[10] = new kaart(1, "geel", 10)
+        stapel[11] = new kaart(6, "geel", 11);
+        stapel[12] = new kaart(6, "rood", 12);
+
+        var startKaart = new kaart(6, "rood", 13);
+        //speler kaarten geven
+        Fabian.kaarten[Fabian.kaarten.length] = stapel[stapel.length - 1];
+        stapel.pop();
+        Fabian.kaarten[Fabian.kaarten.length] = stapel[stapel.length - 1];
+        stapel.pop();
+        Fabian.kaarten[Fabian.kaarten.length] = stapel[stapel.length - 1];
+
+        //begin kaart
+        gebruikteKaarten[gebruikteKaarten.length] = startKaart;
 
 
+        function maakSpelGereed() {
+            toonStartKaart();
+            outputKaartenVanSpelers();
+        }
+
+        function toonStartKaart() {
+
+
+
+            map.innerHTML += `
+                <div id = "${startKaart.idee}" class="kaart ${startKaart.kleur}" style="left: 0; top: 0px;">
+                    <div class="binnenKaart">
+                        <span class="kaartNr">${startKaart.waarde}</span>
+                    </div>
+                </div>`;
+
+        }
+
+        function outputKaartenVanSpelers() {
+
+            // //12.5 omdat aan beide kanten 12.5% niet gebruikt wordt. (in totaal wordt 75% width aan kaarten gegeven)
+            // var extraMargin = $(window).width() * (12.5 / 100);
+            // var widthKaart = ($(window).width() * (30 / 100))/7; //idk why, maar als ik door 8 deel komt in miden.
+            // console.log(extraMargin);
+
+            // //var plaatsPerKaart = ($(window).width() / 1.5 )  / Fabian.kaarten.length;
+            // var plaatsPerKaart = ($(window).width() * (75 / 100)) / Fabian.kaarten.length;
+            // for (var i = 0; i < Fabian.kaarten.length; i++) {
+            //     map.innerHTML += `
+            //     <div class="kaart ${Fabian.kaarten[i].kleur}" style="left: ${(i * plaatsPerKaart) + extraMargin - widthKaart}px; bottom: 0px;">
+            //         <div class="binnenKaart">
+            //             <span class="kaartNr">${Fabian.kaarten[i].waarde}</span>
+            //         </div>
+            //     </div>`;
+            // }
+
+
+
+            //12.5 omdat aan beide kanten 12.5% niet gebruikt wordt. (in totaal wordt 75% width aan kaarten gegeven)
+            var extraMargin = $(window).width() * (12.5 / 100);
+            var widthKaart = ($(window).width() * (30 / 100)) / 7; //idk why, maar als ik door 8 deel komt in miden.
+            console.log(extraMargin);
+
+            //var plaatsPerKaart = ($(window).width() / 1.5 )  / Fabian.kaarten.length;
+            var plaatsPerKaart = ($(window).width() * (75 / 100)) / Fabian.kaarten.length;
+            for (var i = 0; i < Fabian.kaarten.length; i++) {
+                map.innerHTML += `
+                <div id="${Fabian.kaarten[i].idee}" class="kaart ${Fabian.kaarten[i].kleur}" value="${Fabian.kaarten[i].kleur};${Fabian.kaarten[i].waarde}" style="left: ${(i * 100)}px; bottom: 0px;" onclick="kiesKaart(this)">
+                    <div class="binnenKaart">
+                        <span class="kaartNr">${Fabian.kaarten[i].waarde}</span>
+                    </div>
+                </div>`;
+            }
+        }
+
+        var zindex = 1;
+        function kiesKaart(gegeven) {
+            //var kleur = gegeven.split(";")[0];
+            //var waarde = gegeven.split(";")[1];
+            var id = gegeven.id;
+            var selectedKaart;
+
+            var i = 0
+            for (i; i < Fabian.kaarten.length; i++) {
+                if (Fabian.kaarten[i].idee == id) {
+                    console.log(Fabian.kaarten[i] + " is gekozen");
+                    selectedKaart = Fabian.kaarten[i];
+                    break;
+                }
+            }
+
+            if (selectedKaart.kleur == gebruikteKaarten[gebruikteKaarten.length - 1].kleur || selectedKaart.waarde == gebruikteKaarten[gebruikteKaarten.length - 1].waarde) {
+                console.log("mag leggen");
+                document.getElementById(id).style.transition = "1s";
+
+                document.getElementById(id).style.left = 0;
+                document.getElementById(id).style.bottom = $(window).height()-$("#"+id).height();
+                document.getElementById(id).style.zIndex = ++zindex;
+
+
+                Fabian.kaarten.splice(i, 1);
+                gebruikteKaarten.push(selectedKaart);
+                
+                //z index moet voortdurend gestegen worden.
+                //of anderes door eerst kaart verwijderen en dan toevoegen
+            }
+            else {
+                console.log("mag niet leggen");
+            }
+        }
+
+
+        //width: 1000
+        //aantal img: 10
+        // 1000 / 10 = 100
+        // 75% v scherm gebruikt.
+        // 12.5% van elke kant niet gebruiken
+        //
+        //vraag: ik zou kaarten exact in midden willen hebben, 
+        //maar nu gaan ze iets meer naar rechts omdat hun breedte niet is meegerekend.
+        //is het mogelijk de breedte van div te krijgen voor ze geplaatst is?
     </script>
 </body>
 
