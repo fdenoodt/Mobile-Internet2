@@ -12,12 +12,10 @@
 <body onload="maakSpelGereed()">
 
     <div id="map">
-        <div style="position: absolute; left: 50%;">
-            <!-- <div id="test" value="oi" style="position: relative; left: -50%; border: dotted red 1px;">
-                I am some centered shrink-to-fit content!
-                <br /> tum te tum
-            </div> -->
-        </div>
+        <!-- <p>
+            8
+        </p> -->
+
     </div>
 
 
@@ -91,41 +89,61 @@
         }
 
         function outputKaartenVanSpelers() {
-
-            // //12.5 omdat aan beide kanten 12.5% niet gebruikt wordt. (in totaal wordt 75% width aan kaarten gegeven)
-            // var extraMargin = $(window).width() * (12.5 / 100);
-            // var widthKaart = ($(window).width() * (30 / 100))/7; //idk why, maar als ik door 8 deel komt in miden.
-            // console.log(extraMargin);
-
-            // //var plaatsPerKaart = ($(window).width() / 1.5 )  / Fabian.kaarten.length;
-            // var plaatsPerKaart = ($(window).width() * (75 / 100)) / Fabian.kaarten.length;
-            // for (var i = 0; i < Fabian.kaarten.length; i++) {
-            //     map.innerHTML += `
-            //     <div class="kaart ${Fabian.kaarten[i].kleur}" style="left: ${(i * plaatsPerKaart) + extraMargin - widthKaart}px; bottom: 0px;">
-            //         <div class="binnenKaart">
-            //             <span class="kaartNr">${Fabian.kaarten[i].waarde}</span>
-            //         </div>
-            //     </div>`;
-            // }
-
-
-
+            
             //12.5 omdat aan beide kanten 12.5% niet gebruikt wordt. (in totaal wordt 75% width aan kaarten gegeven)
             var extraMargin = $(window).width() * (12.5 / 100);
-            var widthKaart = ($(window).width() * (30 / 100)) / 7; //idk why, maar als ik door 8 deel komt in miden.
+            var widthKaart = ($(window).width() * (30 / 100))/7; //idk why, maar als ik door 8 deel komt in miden.
             console.log(extraMargin);
 
             //var plaatsPerKaart = ($(window).width() / 1.5 )  / Fabian.kaarten.length;
             var plaatsPerKaart = ($(window).width() * (75 / 100)) / Fabian.kaarten.length;
             for (var i = 0; i < Fabian.kaarten.length; i++) {
                 map.innerHTML += `
+                <div class="kaart ${Fabian.kaarten[i].kleur}" style="left: ${(i * plaatsPerKaart) + extraMargin - widthKaart}px; bottom: 0px;">
+                    <div class="binnenKaart">
+                        <span class="kaartNr">${Fabian.kaarten[i].waarde}</span>
+                    </div>
+                </div>`;
+            }
+
+
+
+            // //12.5 omdat aan beide kanten 12.5% niet gebruikt wordt. (in totaal wordt 75% width aan kaarten gegeven)
+            // var extraMargin = $(window).width() * (12.5 / 100);
+            // var widthKaart = ($(window).width() * (30 / 100)) / 7; //idk why, maar als ik door 8 deel komt in miden.
+            // console.log(extraMargin);
+
+            //var plaatsPerKaart = ($(window).width() / 1.5 )  / Fabian.kaarten.length;
+            //var plaatsPerKaart = ($(window).width() * (75 / 100)) / Fabian.kaarten.length;
+          //  updateKaartenVanFabian();
+
+        }
+
+
+
+        function updateKaartenVanFabian() {
+            var output =""; // "<div style='background-color: orange; bottom: 0px; left: 0px; width: auto; heigth: auto;'>";
+
+                // <div style="position: absolute; left: 50%;">
+                //     <div style="position: relative; left: -50%; border: dotted red 1px;">
+                //     I am some centered shrink-to-fit content! <br />
+                //     tum te tum
+                //     </div>
+                // </div>
+
+            for (var i = 0; i < Fabian.kaarten.length; i++) {
+                output += `
                 <div id="${Fabian.kaarten[i].idee}" class="kaart ${Fabian.kaarten[i].kleur}" value="${Fabian.kaarten[i].kleur};${Fabian.kaarten[i].waarde}" style="left: ${(i * 100)}px; bottom: 0px;" onclick="kiesKaart(this)">
                     <div class="binnenKaart">
                         <span class="kaartNr">${Fabian.kaarten[i].waarde}</span>
                     </div>
                 </div>`;
             }
+
+            //output += "</div>";
+            map.innerHTML = output;
         }
+
 
         var zindex = 1;
         function kiesKaart(gegeven) {
@@ -148,13 +166,13 @@
                 document.getElementById(id).style.transition = "1s";
 
                 document.getElementById(id).style.left = 0;
-                document.getElementById(id).style.bottom = $(window).height()-$("#"+id).height();
+                document.getElementById(id).style.bottom = $(window).height() - $("#" + id).height();
                 document.getElementById(id).style.zIndex = ++zindex;
 
 
                 Fabian.kaarten.splice(i, 1);
                 gebruikteKaarten.push(selectedKaart);
-                
+
                 //z index moet voortdurend gestegen worden.
                 //of anderes door eerst kaart verwijderen en dan toevoegen
             }
