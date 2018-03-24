@@ -66,3 +66,10 @@ body {
     color: black;
     background-color: black;
 }
+
+.unoKaart{
+     
+    position: absolute; 
+    width: 16vh;
+    height: 24vh;
+}
