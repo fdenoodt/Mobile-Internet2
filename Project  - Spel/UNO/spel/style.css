@@ -4,7 +4,7 @@ body {
 }
 
 #map {
-    background-color: red;
+    /* background-color: red; */
     height: 100vh;
     width: 100vw;
     position: absolute;
@@ -72,4 +72,14 @@ body {
     position: absolute; 
     width: 16vh;
     height: 24vh;
+}
+
+#terreinBot1, #terreinBot2, #terreinBot3{
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+    /* background-color: blue; */
+    
 }

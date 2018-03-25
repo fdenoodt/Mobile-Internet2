@@ -12,6 +12,10 @@
 <body onload="maakSpelGereed()">
 
     <div id="map">
+        <div id="terreinBot1"></div>
+        <div id="terreinBot2"></div>
+        <div id="terreinBot3"></div>
+        <div id="terreinFabian"></div>
     </div>
 
 
@@ -22,11 +26,13 @@
         var gebruikteKaarten = new Array();
 
         var richtingIsKlokWijs = true;
-        var wieZijnBeurt = Fabian;
 
-        function speler(naam) {
+        var zindex = 1;
+
+        function speler(naam, terrein) {
             this.naam = naam;
             this.kaarten = new Array();
+            this.terrein = document.getElementById(terrein);
         }
 
         function kaart(waarde, kleur, idee) {
@@ -35,11 +41,12 @@
             this.idee = idee;
         }
 
-        var Fabian = new speler("Fabian");
-        var bot1 = new speler("Bot1");
-        var bot2 = new speler("Bot2");
-        var bot3 = new speler("Bot3");
+        var Fabian = new speler("Fabian", "terreinFabian");
+        var bot1 = new speler("Bot1", "terreinBot1");
+        var bot2 = new speler("Bot2", "terreinBot2");
+        var bot3 = new speler("Bot3", "terreinBot3");
 
+        var wieZijnBeurt = Fabian;
 
         stapel[0] = new kaart(9, "geel", 1);
         stapel[1] = new kaart(1, "blauw", 2);
@@ -51,12 +58,12 @@
         stapel[7] = new kaart(6, "geel", 7);
         stapel[8] = new kaart(6, "geel", 8);
         stapel[9] = new kaart(6, "geel", 9);
-        stapel[10] = new kaart(1, "geel", 10)
+        stapel[10] = new kaart(1, "blauw", 10)
         stapel[11] = new kaart(6, "geel", 11);
         stapel[12] = new kaart(6, "rood", 12);
 
         //startKaart
-        gebruikteKaarten[gebruikteKaarten.length] = new kaart(6, "rood", 13);
+        gebruikteKaarten[gebruikteKaarten.length] = new kaart(6, "blauw", 13);
 
 
         //speler kaarten geven
@@ -86,23 +93,34 @@
 
 
         function maakSpelGereed() {
-            map.innerHTML = "";
-            toonLaatstGezetteKaart();
+            //map.innerHTML = "";
+
+            toonLaatstGezetteKaartEnStapel();
             outputKaartenVanSpelers();
         }
 
-        function toonLaatstGezetteKaart() {
 
 
+        function toonLaatstGezetteKaartEnStapel() {
+
+            //laatstgezette kaart
             var laatsGezetteKaart = "";
             laatsGezetteKaart += `
-                <div id = "${gebruikteKaarten[gebruikteKaarten.length - 1].idee}" class="kaart ${gebruikteKaarten[gebruikteKaarten.length - 1].kleur}" style="left: 0; top: 0px;">
+                <div id = "${gebruikteKaarten[gebruikteKaarten.length - 1].idee}" class="kaart ${gebruikteKaarten[gebruikteKaarten.length - 1].kleur}" style="left: 0; top: 0px; z-index: ${++zindex}">
                     <div class="binnenKaart">
                         <span class="kaartNr">${gebruikteKaarten[gebruikteKaarten.length - 1].waarde}</span>
                     </div>
                 </div>`;
 
-            map.innerHTML += laatsGezetteKaart;
+            Fabian.terrein.innerHTML += laatsGezetteKaart;
+
+
+            //stapel
+            Fabian.terrein.innerHTML += `<div id = "${stapel[stapel.length - 1].idee}" onclick="neemKaart()" class="kaart ${stapel[stapel.length - 1].kleur}" style="left: 800; top: 0px;">
+                    <div class="binnenKaart">
+                        <span class="kaartNr">${stapel[stapel.length - 1].waarde}</span>
+                    </div>
+                </div>`;
         }
 
         function outputKaartenVanSpelers() {
@@ -154,7 +172,7 @@
             }
 
 
-            map.innerHTML += kaartenVanFabian;
+            Fabian.terrein.innerHTML += kaartenVanFabian;
         }
 
         function updateKaartenVanBots() {
@@ -166,21 +184,21 @@
                 outputKaartenBot1 += `
                 <img id="${bot1.kaarten[i].idee}" src="img/uno_back.png" class="unoKaart" style="transform: rotateZ(90deg); left: 20; top:${(i * 70) + 150};" alt="Afbeelding van de achterkant van een uno kaart">"`;
             }
-            map.innerHTML += outputKaartenBot1;
+            bot1.terrein.innerHTML = outputKaartenBot1;
 
             var outputKaartenBot2 = "";
             for (var i = 0; i < bot2.kaarten.length; i++) {
                 outputKaartenBot2 += `
                 <img id="${bot2.kaarten[i].idee}" src="img/uno_back.png" class="unoKaart" style="transform: rotateZ(180deg);left: ${(i * 70) + 150}; top:0;" alt="Afbeelding van de achterkant van een uno kaart">"`;
             }
-            map.innerHTML += outputKaartenBot2;
+            bot2.terrein.innerHTML = outputKaartenBot2;
 
             var outputKaartenBot3 = "";
             for (var i = 0; i < bot3.kaarten.length; i++) {
                 outputKaartenBot3 += `
                 <img id="${bot3.kaarten[i].idee}" src="img/uno_back.png" class="unoKaart" style="transform: rotateZ(-90deg);left: 850; top:${(i * 70) + 150};" alt="Afbeelding van de achterkant van een uno kaart">"`;
             }
-            map.innerHTML += outputKaartenBot3;
+            bot3.terrein.innerHTML = outputKaartenBot3;
 
 
 
@@ -189,8 +207,10 @@
         }
 
 
-        var zindex = 1;
+
         function kiesKaart(gegeven) {
+            if (wieZijnBeurt != Fabian)
+                return;
 
             var id = gegeven.id;
             var selectedKaart;
@@ -224,8 +244,11 @@
                     //z index moet voortdurend gestegen worden.
                     //of anderes door eerst kaart verwijderen en dan toevoegen
 
-                    setTimeout(function () { wieZijnBeurt = bot1; }, 1500);
+                    //dit moet nu al om te vermijden dat gebr 2 keer snel na elkaar legt
+                    wieZijnBeurt = bot1;
+                    setTimeout(function () { bepaalBeurt(); }, 1500);
                     console.log("timeout");
+
 
 
                 }
@@ -236,51 +259,102 @@
         }
 
 
+        function neemKaart() {
+            if (wieZijnBeurt != Fabian)
+                return;
+
+            if (stapel.length > 1) {
+                Fabian.kaarten.push(stapel[stapel.length - 1]);
+                stapel.pop();
+
+                updateKaartenVanFabian();
+                toonLaatstGezetteKaartEnStapel();
+
+                wieZijnBeurt = bot1;
+                bepaalBeurt();
+            }
+            else {
+                alert("er zijn geen kaarten meer.");
+            }
+
+        }
+
+
 
 
         //*********************************************************************
         //************************Timer****************************************
         //*********************************************************************
 
-
-        var myVar;
-        startTimer();
-        function startTimer() {
-            myVar = setInterval(timer, 100);
-        }
-
-        function timer() {
-            //alert("Hello!");
+        function bepaalBeurt() {
 
             if (wieZijnBeurt == bot1) {
+                botLegtKaart(wieZijnBeurt);
                 wieZijnBeurt = bot2;
-                setTimeout(function () { }, 1500);
-                console.log(wieZijnBeurt.naam)
+                console.log(wieZijnBeurt.naam);
 
+                setTimeout(function () {
+                    bepaalBeurt();
+
+                }, 2000);
             }
 
-            if (wieZijnBeurt == bot2) {
+            else if (wieZijnBeurt == bot2) {
+                botLegtKaart(wieZijnBeurt);
                 wieZijnBeurt = bot3;
-                setTimeout(function () { }, 1500);
-                console.log(wieZijnBeurt.naam)
+                console.log(wieZijnBeurt.naam);
+
+                setTimeout(function () {
+                    bepaalBeurt();
+
+                }, 2000);
 
 
             }
-            if (wieZijnBeurt == bot3) {
+            else if (wieZijnBeurt == bot3) {
+                botLegtKaart(wieZijnBeurt);
                 wieZijnBeurt = Fabian;
-                setTimeout(function () { }, 1500);
+
                 console.log(wieZijnBeurt.naam)
 
+                setTimeout(function () {
+                    bepaalBeurt();
+
+                }, 5000);
+
             }
+
         }
 
 
+        function botLegtKaart(bot) {
+            console.log(bot.kaarten);
+            var laatsGezetteKaart = gebruikteKaarten[gebruikteKaarten.length - 1];
+            console.log("laatsGezetteKaart");
+            console.log(laatsGezetteKaart);
+            for (var i = 0; i < bot.kaarten.length; i++) {
+                if (bot.kaarten[0].kleur == laatsGezetteKaart.kleur || bot.kaarten[0].waarde == laatsGezetteKaart.waarde) {
 
+                    //mag kaart leggen
+                    gebruikteKaarten.push(bot.kaarten[i]);
 
+                    bot.kaarten.splice(i, 1);
+                    updateKaartenVanBots();
+                    toonLaatstGezetteKaartEnStapel();
 
+                    return;
+                }
 
+            }
 
+            bot.kaarten.push(stapel[stapel.length - 1]);
+            stapel.pop();
 
+            Fabian.terrein.innerHTML = "";
+            updateKaartenVanBots();
+            updateKaartenVanFabian();
+            toonLaatstGezetteKaartEnStapel();
+        }
 
     </script>
 </body>
