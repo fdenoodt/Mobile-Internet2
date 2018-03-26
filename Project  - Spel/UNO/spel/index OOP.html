@@ -33,6 +33,7 @@
             this.naam = naam;
             this.kaarten = new Array();
             this.terrein = document.getElementById(terrein);
+            this.isUitGespeeld = false;
         }
 
         function kaart(waarde, kleur, idee) {
@@ -58,7 +59,7 @@
         stapel[7] = new kaart(6, "geel", 7);
         stapel[8] = new kaart(6, "geel", 8);
         stapel[9] = new kaart(6, "geel", 9);
-        stapel[10] = new kaart(1, "blauw", 10)
+        stapel[10] = new kaart(6, "blauw", 10)
         stapel[11] = new kaart(6, "geel", 11);
         stapel[12] = new kaart(6, "rood", 12);
 
@@ -209,7 +210,7 @@
 
 
         function kiesKaart(gegeven) {
-            if (wieZijnBeurt != Fabian)
+            if (wieZijnBeurt != Fabian || Fabian.isUitGespeeld)
                 return;
 
             var id = gegeven.id;
@@ -240,7 +241,7 @@
 
                     Fabian.kaarten.splice(i, 1);
                     gebruikteKaarten.push(selectedKaart);
-
+                    kijkOfGewonnenHeeft(Fabian);
                     //z index moet voortdurend gestegen worden.
                     //of anderes door eerst kaart verwijderen en dan toevoegen
 
@@ -328,6 +329,9 @@
 
 
         function botLegtKaart(bot) {
+            if(bot.isUitGespeeld)
+                return;
+
             console.log(bot.kaarten);
             var laatsGezetteKaart = gebruikteKaarten[gebruikteKaarten.length - 1];
             console.log("laatsGezetteKaart");
@@ -341,6 +345,9 @@
                     bot.kaarten.splice(i, 1);
                     updateKaartenVanBots();
                     toonLaatstGezetteKaartEnStapel();
+                    
+
+                    kijkOfGewonnenHeeft(bot);
 
                     return;
                 }
@@ -356,6 +363,13 @@
             toonLaatstGezetteKaartEnStapel();
         }
 
+
+        function kijkOfGewonnenHeeft(speler){
+            if(speler.kaarten.length < 1){
+                speler.isUitGespeeld = true;
+                alert(`${speler.naam} is uit.`);
+            }
+        }
     </script>
 </body>
 
