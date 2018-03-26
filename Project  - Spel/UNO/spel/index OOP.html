@@ -5,18 +5,46 @@
     <title>UNO OOP</title>
     <link href="https://fonts.googleapis.com/css?family=Rammetto+One" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
     <link href="style.css" rel="stylesheet" type="text/css">
+
 </head>
 
-<body onload="maakSpelGereed()">
+<body style="overflow:hidden;">
+
+        <div class="startScherm jumbotron jumbotron-fluid" id="startScherm">
+                <h1 class="display-4">UNO</h1>
+                <p class="lead" id="resultaten"> 
+                    Welcome to UNO.<br>
+                    A remake of the game, created by Fabian Denoodt.
+                    <br> 
+                    
+                    <button type="button" class="btn btn-danger" onclick="maakSpelGereed()">Start playing</button>
+                </p>
+        </div>
+
+    <div class="eindScherm jumbotron jumbotron-fluid" id="eindScherm">
+            <h1 class="display-4">Scores</h1>
+            <p class="lead" id="resultaten"> 
+                <br> 1. Fabian
+                <br> 2. Bot1
+                <br> 3. Bot2
+                <br>4. not worth mentioning.<br>
+                <button type="button" class="btn btn-danger" onclick="playAgain()">Play again</button>
+            </p>
+    </div>
 
     <div id="map">
+
         <div id="terreinBot1"></div>
         <div id="terreinBot2"></div>
         <div id="terreinBot3"></div>
         <div id="terreinFabian"></div>
+
+
     </div>
+
 
 
     <script>
@@ -28,6 +56,8 @@
         var richtingIsKlokWijs = true;
 
         var zindex = 1;
+
+        var eindScore = new Array();
 
         function speler(naam, terrein) {
             this.naam = naam;
@@ -62,6 +92,7 @@
         stapel[10] = new kaart(6, "blauw", 10)
         stapel[11] = new kaart(6, "geel", 11);
         stapel[12] = new kaart(6, "rood", 12);
+        stapel[12] = new kaart(6, "groen", 14);
 
         //startKaart
         gebruikteKaarten[gebruikteKaarten.length] = new kaart(6, "blauw", 13);
@@ -94,8 +125,7 @@
 
 
         function maakSpelGereed() {
-            //map.innerHTML = "";
-
+            $(".startScherm").fadeOut("slow");
             toonLaatstGezetteKaartEnStapel();
             outputKaartenVanSpelers();
         }
@@ -297,7 +327,7 @@
                 setTimeout(function () {
                     bepaalBeurt();
 
-                }, 2000);
+                }, 500);
             }
 
             else if (wieZijnBeurt == bot2) {
@@ -308,7 +338,7 @@
                 setTimeout(function () {
                     bepaalBeurt();
 
-                }, 2000);
+                }, 500);
 
 
             }
@@ -321,7 +351,7 @@
                 setTimeout(function () {
                     bepaalBeurt();
 
-                }, 5000);
+                }, 500);
 
             }
 
@@ -329,7 +359,7 @@
 
 
         function botLegtKaart(bot) {
-            if(bot.isUitGespeeld)
+            if (bot.isUitGespeeld)
                 return;
 
             console.log(bot.kaarten);
@@ -337,7 +367,7 @@
             console.log("laatsGezetteKaart");
             console.log(laatsGezetteKaart);
             for (var i = 0; i < bot.kaarten.length; i++) {
-                if (bot.kaarten[0].kleur == laatsGezetteKaart.kleur || bot.kaarten[0].waarde == laatsGezetteKaart.waarde) {
+                if (bot.kaarten[i].kleur == laatsGezetteKaart.kleur || bot.kaarten[i].waarde == laatsGezetteKaart.waarde) {
 
                     //mag kaart leggen
                     gebruikteKaarten.push(bot.kaarten[i]);
@@ -345,7 +375,7 @@
                     bot.kaarten.splice(i, 1);
                     updateKaartenVanBots();
                     toonLaatstGezetteKaartEnStapel();
-                    
+
 
                     kijkOfGewonnenHeeft(bot);
 
@@ -364,11 +394,37 @@
         }
 
 
-        function kijkOfGewonnenHeeft(speler){
-            if(speler.kaarten.length < 1){
+        function kijkOfGewonnenHeeft(speler) {
+            if (speler.kaarten.length < 1) {
                 speler.isUitGespeeld = true;
-                alert(`${speler.naam} is uit.`);
+                eindScore.push(speler.naam);
+
+                //alert(`${speler.naam} is uit.`);
+                bekijkScore();
             }
+        }
+
+        function bekijkScore() {
+            if (eindScore.length >= 3) {
+                //alert(`Het spel is afgelopen. Dit waren de scores: 1. ${eindScore[0]}, 2. ${eindScore[1]}, 3. ${eindScore[2]}`);
+                
+                document.getElementById("resultaten").innerHTML = `1. ${eindScore[0]}
+                <br> 2. ${eindScore[1]}
+                <br> 3. 3. ${eindScore[2]}
+                <br>4. Not worth mentioning.<br>
+                <button type="button" class="btn btn-danger">Play again</button>`;
+
+              
+                $(".eindScherm").fadeIn("slow");
+                 
+              
+
+                
+            }
+        }
+
+        function playAgain(){
+
         }
     </script>
 </body>

@@ -4,7 +4,7 @@ body {
 }
 
 #map {
-    /* background-color: red; */
+    background-color: #F7F7F9;
     height: 100vh;
     width: 100vw;
     position: absolute;
@@ -35,7 +35,7 @@ body {
 }
 
 .kaartNr {
-    font-family: 'Rammetto One', cursive;
+    /* font-family: 'Rammetto One', cursive; */
     /* border */
     text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
@@ -43,23 +43,23 @@ body {
 
 
 .rood {
-    color: red;
-    background-color: red;
+    color: #DC3545;
+    background-color: #DC3545;
 }
 
 .blauw {
-    color: blue;
-    background-color: blue;
+    color: #007BFF;
+    background-color: #007BFF;
 }
 
 .groen {
-    color: green;
-    background-color: green;
+    color: #28A745;
+    background-color: #28A745;
 }
 
 .geel {
-    color: yellow;
-    background-color: yellow;
+    color: #FFC107;
+    background-color: #FFC107;
 }
 
 .ongekend{
@@ -83,3 +83,17 @@ body {
     /* background-color: blue; */
     
 }
+
+#eindScherm, #startScherm{
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+    font-size: 26px;
+    padding-top: 20vh;
+    background-color: #F7F7F9;
+}
+#eindScherm{
+    display: none;
+}
+
+button{margin-top: 2.5em;}
