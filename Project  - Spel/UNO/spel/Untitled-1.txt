@@ -1,0 +1,37 @@
+A.  Hello, welcome to the support service of Skype.
+    What can I help you with?
+
+B.  Hello sir, I have a problem installing Skype.
+
+A.  Okay, what exactly is the problem?
+
+B.  I don't know how to install the program, can you help me?
+
+A.  Sure, did you turn on your computer?
+
+B.  Okay, one second. I am pressing the power button.
+
+A.  In the mean time, can you tell me if you are using windows or Mac?
+
+B.  I am using MAC.. oh the computer just turned on.
+
+A.  Okay perfect, please open safari and go the website: "https://www.skype.com/".
+
+B.  Okay, one second please.. alright i'm on the website.
+
+A.  Alright, once you are on the website you will see a big green button that says "Get Skype".
+    If you click on it, you will see that the program will start downloading.
+    Once skype has finished its download you will be able to install the program.
+
+B.  .. Okay sir the program has been installed. Do I double click on it now?
+
+A.  Yep, all you have to do now is follow the installation wizard and you will be set to go.
+
+B.  I installed it, how do I start calling someone now?
+
+A.  So first of all you will need a skype account, 
+    I don't know if you already have one 
+
+
+
+
