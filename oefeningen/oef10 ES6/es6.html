@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Get content from singer</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body onload="zuurcst();">
+
+
+</body>
+<script>
+    $(document).ready(function () {
+
+    })
+
+    function gebrLet() {
+        let getal2 = null;
+        if (true) {
+            var getal = 7;
+            getal2 = 8;
+        }
+
+        alert(getal);
+        alert(getal2);
+    }
+
+    function gebrConst(){
+        const getal = 30;
+        alert(getal);
+        getal = 30;
+        alert(getal);
+    }
+
+
+//A + B -> C    K = [C]/[A][B]
+
+//k =  c/(ab)
+// k(ab) = c
+// ab = c/k
+//b = (c/k)/a
+
+
+//B = c/Ka
+
+// Stel [A] = 2 [B] = 3 [C] = 6 -> K= 1 (perf evenw)
+// B = 
+    
+function zuurcst(){
+   
+    var a = 2;
+    var c = 6;
+    var K = 1; 
+
+    var b = c/(K*a);
+
+    //alert(b);
+}
+
+
+//-----------------
+
+var mijnMethode = (R = "Dit is R", B = "B") => {
+    alert(R + " - " + B);
+}
+
+mijnMethode(undefined, "test");
+
+//---------------
+
+function hallo(aap = "aap", peer = "peer"){
+
+    
+    alert(aap + " en " + peer);
+
+}
+
+hallo(undefined, "beer");
+
+
+
+</script>
+
+</html>
