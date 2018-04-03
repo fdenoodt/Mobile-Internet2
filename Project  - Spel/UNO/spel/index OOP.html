@@ -41,8 +41,7 @@
         <div id="terreinBot2"></div>
         <div id="terreinBot3"></div>
         <div id="terreinFabian"></div>
-
-
+        <div id="terreinAlgemeneKaarten"><div>
     </div>
 
 
@@ -56,8 +55,11 @@
         var richtingIsKlokWijs = true;
 
         var zindex = 1;
-
         var eindScore = new Array();
+        var kaartHoogte = $(window).height() * (30/100); //30 vh
+        var kaartBreedte = $(window).height() * (20/100);
+        var duratiePerBeurt = 500;
+        var terreinAlgemeneKaarten = document.getElementById("terreinAlgemeneKaarten");
 
         function speler(naam, terrein) {
             this.naam = naam;
@@ -70,7 +72,7 @@
             this.waarde = waarde;
             this.kleur = kleur;
             this.idee = idee;
-        }
+          }
 
         var Fabian = new speler("Fabian", "terreinFabian");
         var bot1 = new speler("Bot1", "terreinBot1");
@@ -133,21 +135,25 @@
 
 
         function toonLaatstGezetteKaartEnStapel() {
-
+          alert(kaartBreedte);
             //laatstgezette kaart
             var laatsGezetteKaart = "";
+
             laatsGezetteKaart += `
-                <div id = "${gebruikteKaarten[gebruikteKaarten.length - 1].idee}" class="kaart ${gebruikteKaarten[gebruikteKaarten.length - 1].kleur}" style="left: 0; top: 0px; z-index: ${++zindex}">
+                <div id = "${gebruikteKaarten[gebruikteKaarten.length - 1].idee}" class="kaart ${gebruikteKaarten[gebruikteKaarten.length - 1].kleur}"
+                style="left: ${(($(window).width())/2-(kaartBreedte/2))-(kaartBreedte)/2}px; top: ${($(window).height()/2)-kaartHoogte/2}px; z-index: ${++zindex}">
                     <div class="binnenKaart">
                         <span class="kaartNr">${gebruikteKaarten[gebruikteKaarten.length - 1].waarde}</span>
                     </div>
                 </div>`;
 
-            Fabian.terrein.innerHTML += laatsGezetteKaart;
+            terreinAlgemeneKaarten.innerHTML = laatsGezetteKaart;
 
 
             //stapel
-            Fabian.terrein.innerHTML += `<div id = "${stapel[stapel.length - 1].idee}" onclick="neemKaart()" class="kaart ${stapel[stapel.length - 1].kleur}" style="left: 800; top: 0px;">
+            terreinAlgemeneKaarten.innerHTML +=
+            `<div id = "${stapel[stapel.length - 1].idee}" onclick="neemKaart()" class="kaart ${stapel[stapel.length - 1].kleur}"
+             style="left: ${(($(window).width())/2-(kaartBreedte/2))+(kaartBreedte)/2}px; top: ${($(window).height()/2)-kaartHoogte/2}px; z-index: ${++zindex}">
                     <div class="binnenKaart">
                         <span class="kaartNr">${stapel[stapel.length - 1].waarde}</span>
                     </div>
@@ -155,38 +161,8 @@
         }
 
         function outputKaartenVanSpelers() {
-
             updateKaartenVanFabian();
             updateKaartenVanBots();
-
-            //12.5 omdat aan beide kanten 12.5% niet gebruikt wordt. (in totaal wordt 75% width aan kaarten gegeven)
-            //var extraMargin = $(window).width() * (12.5 / 100);
-            //var widthKaart = ($(window).width() * (30 / 100)) / 7; //idk why, maar als ik door 8 deel komt in miden.
-
-
-            //console.log(extraMargin);
-            //var plaatsPerKaart = ($(window).width() / 1.5 )  / Fabian.kaarten.length;
-            // var plaatsPerKaart = ($(window).width() * (75 / 100)) / Fabian.kaarten.length;
-            // for (var i = 0; i < Fabian.kaarten.length; i++) {
-            //     map.innerHTML += `
-            //     <div class="kaart ${Fabian.kaarten[i].kleur}" style="left: ${(i * plaatsPerKaart) + extraMargin - widthKaart}px; bottom: 0px;">
-            //         <div class="binnenKaart">
-            //             <span class="kaartNr">${Fabian.kaarten[i].waarde}</span>
-            //         </div>
-            //     </div>`;
-            // }
-
-
-
-            // //12.5 omdat aan beide kanten 12.5% niet gebruikt wordt. (in totaal wordt 75% width aan kaarten gegeven)
-            // var extraMargin = $(window).width() * (12.5 / 100);
-            // var widthKaart = ($(window).width() * (30 / 100)) / 7; //idk why, maar als ik door 8 deel komt in miden.
-            // console.log(extraMargin);
-
-            //var plaatsPerKaart = ($(window).width() / 1.5 )  / Fabian.kaarten.length;
-            //var plaatsPerKaart = ($(window).width() * (75 / 100)) / Fabian.kaarten.length;
-
-
         }
 
 
@@ -195,15 +171,15 @@
             var kaartenVanFabian = "";
             for (var i = 0; i < Fabian.kaarten.length; i++) {
                 kaartenVanFabian += `
-                <div id="${Fabian.kaarten[i].idee}" class="kaart ${Fabian.kaarten[i].kleur}" value="${Fabian.kaarten[i].kleur};${Fabian.kaarten[i].waarde}" style="left: ${(i * 100)}px; bottom: 0px;" onclick="kiesKaart(this)">
+                <div id="${Fabian.kaarten[i].idee}" class="kaart ${Fabian.kaarten[i].kleur}" value="${Fabian.kaarten[i].kleur};${Fabian.kaarten[i].waarde}"
+                style="left: ${(i * 100)}px; top: ${$(window).height()-kaartHoogte}px;" onclick="kiesKaart(this)">
                     <div class="binnenKaart">
                         <span class="kaartNr">${Fabian.kaarten[i].waarde}</span>
                     </div>
                 </div>`;
             }
 
-
-            Fabian.terrein.innerHTML += kaartenVanFabian;
+            Fabian.terrein.innerHTML = kaartenVanFabian;
         }
 
         function updateKaartenVanBots() {
@@ -230,10 +206,6 @@
                 <img id="${bot3.kaarten[i].idee}" src="img/uno_back.png" class="unoKaart" style="transform: rotateZ(-90deg);left: 850; top:${(i * 70) + 150};" alt="Afbeelding van de achterkant van een uno kaart">"`;
             }
             bot3.terrein.innerHTML = outputKaartenBot3;
-
-
-
-
 
         }
 
@@ -265,7 +237,7 @@
                     document.getElementById(id).style.transition = "1s";
 
                     document.getElementById(id).style.left = 0;
-                    document.getElementById(id).style.bottom = $(window).height() - $("#" + id).height();
+                    document.getElementById(id).style.top = 0;
                     document.getElementById(id).style.zIndex = ++zindex;
 
 
@@ -327,7 +299,7 @@
                 setTimeout(function () {
                     bepaalBeurt();
 
-                }, 500);
+                }, duratiePerBeurt);
             }
 
             else if (wieZijnBeurt == bot2) {
@@ -338,7 +310,7 @@
                 setTimeout(function () {
                     bepaalBeurt();
 
-                }, 500);
+                }, duratiePerBeurt);
 
 
             }
@@ -351,7 +323,7 @@
                 setTimeout(function () {
                     bepaalBeurt();
 
-                }, 500);
+                }, duratiePerBeurt);
 
             }
 
@@ -371,12 +343,10 @@
 
                     //mag kaart leggen
                     gebruikteKaarten.push(bot.kaarten[i]);
-
                     bot.kaarten.splice(i, 1);
+
                     updateKaartenVanBots();
                     toonLaatstGezetteKaartEnStapel();
-
-
                     kijkOfGewonnenHeeft(bot);
 
                     return;
@@ -400,7 +370,7 @@
                 eindScore.push(speler.naam);
 
                 //alert(`${speler.naam} is uit.`);
-                setTimeout(toonScore, 100);
+                setTimeout(toonScore, duratiePerBeurt);
             }
         }
 

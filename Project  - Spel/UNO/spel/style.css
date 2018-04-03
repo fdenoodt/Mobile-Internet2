@@ -34,7 +34,7 @@ body {
     background-color: white;
     text-align: center;
     margin: auto;
-    margin-top: 15%;
+    /* margin-top: 15%; */
     border-radius: 20% 2% 20% 2%;
     font-size: 6em;
 
@@ -89,6 +89,11 @@ body {
     top: 0;
     /* background-color: blue; */
 
+}
+#terreinAlgemeneKaarten{
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 #eindScherm, #startScherm{
