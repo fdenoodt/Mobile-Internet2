@@ -75,8 +75,8 @@ body {
 }
 
 .unoKaart{
-     
-    position: absolute; 
+
+    position: absolute;
     width: 16vh;
     height: 24vh;
 }
@@ -88,7 +88,7 @@ body {
     left: 0;
     top: 0;
     /* background-color: blue; */
-    
+
 }
 
 #eindScherm, #startScherm{
@@ -104,3 +104,9 @@ body {
 }
 
 button{margin-top: 2.5em;}
+
+.resultatenNummer{
+  display: inline-block;
+  width: 1em;
+  color: #C82333;
+}
