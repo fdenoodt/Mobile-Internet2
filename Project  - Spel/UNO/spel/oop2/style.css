@@ -1,0 +1,117 @@
+body {
+    padding: 0;
+    margin: 0;
+    /* ervoor zorgen dat ze niets kunnen selecteren, die blauwe kleur is vervelend. */
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;
+}
+
+#map {
+    background-color: #F7F7F9;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    overflow: hidden;
+}
+
+.kaart {
+    position: absolute;
+    /* background-color: blue; */
+    width: 20vh;
+    height: 30vh;
+    border-radius: 10%;
+    /* border: solid 2px; */
+    border-color: white;
+}
+
+.binnenKaart {
+    height: 80%;
+    width: 80%;
+    background-color: white;
+    text-align: center;
+    margin: auto;
+    /* margin-top: 15%; */
+    border-radius: 20% 2% 20% 2%;
+    font-size: 6em;
+
+
+}
+
+.kaartNr {
+    /* font-family: 'Rammetto One', cursive; */
+    /* border */
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
+
+
+.rood {
+    color: #DC3545;
+    background-color: #DC3545;
+}
+
+.blauw {
+    color: #007BFF;
+    background-color: #007BFF;
+}
+
+.groen {
+    color: #28A745;
+    background-color: #28A745;
+}
+
+.geel {
+    color: #FFC107;
+    background-color: #FFC107;
+}
+
+.ongekend{
+    color: black;
+    background-color: black;
+}
+
+.unoKaart{
+
+    position: absolute;
+    width: 16vh;
+    height: 24vh;
+}
+
+#terreinBot1, #terreinBot2, #terreinBot3, #terreinFabian{
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+    /* background-color: blue; */
+
+}
+#terreinAlgemeneKaarten{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#eindScherm, #startScherm{
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+    font-size: 26px;
+    padding-top: 20vh;
+    background-color: #F7F7F9;
+}
+#eindScherm{
+    display: none;
+}
+
+button{margin-top: 2.5em;}
+
+.resultatenNummer{
+  display: inline-block;
+  width: 1em;
+  color: #C82333;
+}

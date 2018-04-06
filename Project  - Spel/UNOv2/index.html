@@ -1,0 +1,64 @@
+<!DOCTYPE>
+<html>
+<head>
+  <title>UNO v2</title>
+  <link href="style.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="Kaart.js"></script>
+  <script src="Spel.js"></script>
+  <script src="Speler.js"></script>
+</head>
+<body style="overflow:hidden;">
+  <div class="startScherm jumbotron jumbotron-fluid" id="startScherm">
+    <h1 class="display-4">UNO</h1>
+    <p class="lead" id="resultaten">
+        Welcome to UNO.<br>
+        A remake of the game, created by Fabian Denoodt.
+        <br>
+        <button type="button" class="btn btn-danger" onclick="toonVeld()">Start playing</button>
+    </p>
+  </div>
+  <div id = "terrein">
+    <div id = "terreinBot1"></div>
+    <div id = "terreinBot2"></div>
+    <div id = "terreinBot3"></div>
+    <div id = "terreinHoofdSpeler">
+
+      <!-- <div class ="kaart rood" id = "5">
+        <div class = "binnenKaart">
+          7
+        </div>
+      </div> -->
+
+    </div>
+    <div id = "terreinAlgemeen"></div>
+  </div>
+
+
+
+<script>
+function toonVeld() {
+  $(".startScherm").fadeOut("slow");
+  $("#terrein").fadeIn("slow");
+
+  maakSpelEnSpelers();
+}
+var spel;
+function maakSpelEnSpelers(){
+  let hoofdSpeler = new Speler("Fab", "terreinHoofdSpeler");
+  let bot1 = new Speler("Bot1", "terreinBot1");
+  let bot2 = new Speler("Bot2", "terreinBot2");
+  let bot3 = new Speler("Bot3", "terreinBot3");
+
+  spel = new Spel(hoofdSpeler, bot1, bot2, bot3);
+  spel.start();
+
+}
+
+
+</script>
+</body>
+</html>
