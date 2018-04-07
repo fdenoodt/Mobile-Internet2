@@ -11,6 +11,8 @@ class Spel {
     this.aantalSpelers = tijdelijkSpelers.length;
     this.ongebruikteKaarten = new Array();
     this.gebruikteKaarten = new Array();
+    this.wieAanDeBeurt = 0;
+    this.spelRichtingIsKlokWijs = true;
   }
 
   get getSpelers() {
@@ -30,8 +32,9 @@ class Spel {
 
   updateKaartenHoofdSpeler() {
 
+
     let output = "";
-    let breedteScherm = $(window).width();
+    let breedteScherm = $(window).width()*(70/100);
     let hoogteScherm = $(window).height();
     let hoogteKaart = 120;
     let breedteKaart = 80;
@@ -51,8 +54,9 @@ class Spel {
         style="
           left: ${j*ruimteTussenKaarten+10}px;
           top: ${hoogteScherm-(hoogteKaart)-(hoogteKaart/4)}px;
-          z-index: ${--zIndex};
-        ">
+          z-index: ${--zIndex};"
+          onclick="spel.spelers[0].legKaart(this)"
+        >
         <div class = "binnenKaart">
           ${this.spelers[0].getKaarten[j].getWaarde}
         </div>
@@ -144,7 +148,6 @@ class Spel {
 
     document.getElementById("terreinAlgemeen").innerHTML = output
   }
-
 
   // ***************************************
   // spel gereerd maken.
