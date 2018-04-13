@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Get content from singer</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <div id="output"></div>
+
+
+</body>
+<script>
+    $(document).ready(function () {
+
+            $.ajax({
+                //link werkt blijkbaar niet met javascript, wel server side dingen..
+                // + url vervalt in 1 dag
+                url:'https://euw1.api.riotgames.com/lol/summoner/v3/summoners/by-name/oFabian?api_key=RGAPI-7db5f6cf-37d8-49b0-a3bd-32f61c5ae01f',
+                type: 'GET',
+                success: function (data) {
+                    console.log(data);                                     
+                    document.getElementById("output").innerHTML = data;
+                },
+                error: function (error){
+                    console.log(error);
+                }
+            });
+
+      
+
+
+
+
+
+
+
+
+
+    })
+
+    //.find('#content').html()
+
+</script>
+
+</html>

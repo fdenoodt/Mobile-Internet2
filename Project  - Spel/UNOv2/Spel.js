@@ -11,7 +11,8 @@ class Spel {
     this.aantalSpelers = tijdelijkSpelers.length;
     this.ongebruikteKaarten = new Array();
     this.gebruikteKaarten = new Array();
-    this.wieAanDeBeurt = 0;
+    this.uitgespeeldeSpelers = new Array();
+    this.wieAanDeBeurt = 1;
     this.spelRichtingIsKlokWijs = true;
   }
 
@@ -21,6 +22,10 @@ class Spel {
 
   get getAantalSpelers() {
     return this.spelers;
+  }
+
+  get laatstGelegdeKaart(){
+    return this.gebruikteKaarten[0];
   }
 
 //kaarten van spelers updaten en weergeven
@@ -150,6 +155,53 @@ class Spel {
   }
 
   // ***************************************
+  // BEURTEN BEPALEN
+  // ***************************************
+
+  geefBeurtAanVolgende(){
+    let that = this; //dit moet gebeuren omdat this in settimeout upfuckt met scope.
+    //bron = https://stackoverflow.com/questions/591269/settimeout-and-this-in-javascript
+
+    console.log(this.wieAanDeBeurt);
+    if(this.wieAanDeBeurt != 0){
+    setTimeout(function () {
+
+      that.wieAanDeBeurt = that.kijkWieVolgendeIs();
+
+      that.geefBeurtAanVolgende();
+      }, 1000);
+    }
+  }
+
+
+    kijkWieVolgendeIs(){
+      let wieIsAanDeBeurt = this.wieAanDeBeurt;
+      if(wieIsAanDeBeurt >= this.aantalSpelers-1){
+        wieIsAanDeBeurt = 0;
+        }
+      else {
+        wieIsAanDeBeurt++;
+      }
+
+      for(let i = 0; i<=4; i++){
+        if(!this.uitgespeeldeSpelers.includes(wieIsAanDeBeurt)){
+          return wieIsAanDeBeurt;
+        }
+        else {
+          if(wieIsAanDeBeurt >= this.aantalSpelers-1){
+            wieIsAanDeBeurt = 0;
+            }
+          else {
+            wieIsAanDeBeurt++;
+          }
+        }
+      }
+  }
+
+
+
+
+  // ***************************************
   // spel gereerd maken.
   // ***************************************
 
@@ -158,10 +210,11 @@ class Spel {
     this.geefSpelersKaarten();
 
     //tijdelijk
-    this.ongebruikteKaarten.shift();
     this.gebruikteKaarten[0] = this.ongebruikteKaarten[0];
+    this.ongebruikteKaarten.shift();
 
     this.updateKaarten();
+
 
   }
 

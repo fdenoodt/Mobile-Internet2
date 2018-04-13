@@ -21,7 +21,11 @@ class Speler {
 // Fabian legt een kaart
   legKaart(geselecteerd){
     let geselecteerdeKaart = this.kijkWelkeKaartgekozenIs(geselecteerd);
-    console.log(geselecteerdeKaart + " zal gelegd worden.")
+
+    //kaart leggen
+    if(this.controlleerOfKaartGelegdMagWorden(geselecteerdeKaart)){
+      
+    }
   }
 
   kijkWelkeKaartgekozenIs(geselecteerd){
@@ -37,7 +41,25 @@ class Speler {
     }
     return geselecteerdeKaart;
   }
+
+
+//----------------
+  controlleerOfKaartGelegdMagWorden(kaart){
+    if(kaart.getWaarde == spel.laatstGelegdeKaart.getWaarde || kaart.getKleur == spel.laatstGelegdeKaart.getKleur){
+      console.log("kaart mag gelegd worden.");
+      return true;
+    }
+    else {
+      console.log("kaart mag NIET gelegd worden.");
+      return false;
+    }
+  }
+
 // --------------------------------------
+
+
+
+
 
 
 }
