@@ -76,6 +76,7 @@ body {
     color: #FFC107;
     background-color: #FFC107;
 }
+.zwart { color: black; background-color: black;}
 
 
 .binnenKaart{
@@ -89,4 +90,14 @@ body {
   font-size: 250%;
   font-weight: bold;
   font-family: 'Roboto Slab', serif;
+}
+
+.kaartWaarde{
+  font-size: 700px;
+}
+.zw{
+  background-image: url(img/wildcard.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
 }

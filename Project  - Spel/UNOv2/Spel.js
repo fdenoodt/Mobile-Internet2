@@ -14,8 +14,11 @@ class Spel {
     this.uitgespeeldeSpelers = new Array();
     this.wieAanDeBeurt = 1;
     this.spelRichtingIsKlokWijs = true;
+    this.uniekeId = 0;
+    this.hoofdSpelerHeeftGelegd = false;
   }
 
+ //*********************** Properties *************************
   get getSpelers() {
     return this.spelers;
   }
@@ -28,7 +31,10 @@ class Spel {
     return this.gebruikteKaarten[0];
   }
 
-//kaarten van spelers updaten en weergeven
+
+
+//*** kaarten van spelers updaten en weergeven ***
+//************************************************
   updateKaarten() {
     this.updateKaartenHoofdSpeler();
     this.updateKaartenBots();
@@ -36,16 +42,12 @@ class Spel {
   }
 
   updateKaartenHoofdSpeler() {
-
-
     let output = "";
     let breedteScherm = $(window).width()*(70/100);
     let hoogteScherm = $(window).height();
     let hoogteKaart = 120;
     let breedteKaart = 80;
 
-    //100
-    // 70% van scherm. --> 700 px. --> 7 --> .
     let aantalKaarten = this.spelers[0].getKaarten.length;
     let ruimteTussenKaarten = breedteScherm/aantalKaarten;
     if(ruimteTussenKaarten > 121)
@@ -53,6 +55,9 @@ class Spel {
 
     let zIndex = this.spelers[0].getKaarten.length;
     for(let j = 0; j<this.spelers[0].getKaarten.length;j++){
+      var wildcard = "";
+      if(this.spelers[0].getKaarten[j].getWaarde == "*" || this.spelers[0].getKaarten[j].getWaarde == "*+4")
+        wildcard = "zw";
       output +=
       `<div class ="kaart ${this.spelers[0].getKaarten[j].getKleur}"
         id = "${this.spelers[0].getKaarten[j].getIdee}"
@@ -62,8 +67,8 @@ class Spel {
           z-index: ${--zIndex};"
           onclick="spel.spelers[0].legKaart(this)"
         >
-        <div class = "binnenKaart">
-          ${this.spelers[0].getKaarten[j].getWaarde}
+        <div class = "binnenKaart ${wildcard}">
+          ${this.spelers[0].getKaarten[j].getWaardeOpScherm}
         </div>
       </div>
       `;
@@ -136,7 +141,7 @@ class Spel {
         top: ${$(window).height()/2-(80/2)}px;
       ">
       <div class = "binnenKaart">
-        ${this.gebruikteKaarten[0].getWaarde}
+        ${this.gebruikteKaarten[0].getWaardeOpScherm}
       </div>
     </div>`;
 
@@ -163,11 +168,10 @@ class Spel {
     //bron = https://stackoverflow.com/questions/591269/settimeout-and-this-in-javascript
 
     console.log(this.wieAanDeBeurt);
-    if(this.wieAanDeBeurt != 0){
+    if(this.wieAanDeBeurt != 0 || this.hoofdSpelerHeeftGelegd){
+      this.hoofdSpelerHeeftGelegd = false;
     setTimeout(function () {
-
       that.wieAanDeBeurt = that.kijkWieVolgendeIs();
-
       that.geefBeurtAanVolgende();
       }, 1000);
     }
@@ -176,6 +180,7 @@ class Spel {
 
     kijkWieVolgendeIs(){
       let wieIsAanDeBeurt = this.wieAanDeBeurt;
+
       if(wieIsAanDeBeurt >= this.aantalSpelers-1){
         wieIsAanDeBeurt = 0;
         }
@@ -184,16 +189,21 @@ class Spel {
       }
 
       for(let i = 0; i<=4; i++){
-        if(!this.uitgespeeldeSpelers.includes(wieIsAanDeBeurt)){
+        if(!this.uitgespeeldeSpelers.includes(wieIsAanDeBeurt) && this.spelers[wieIsAanDeBeurt].magLeggen){
           return wieIsAanDeBeurt;
         }
         else {
+
+          //mag leggen op true, want heeft beurt overgeslaan.
+          this.spelers[wieIsAanDeBeurt].magLeggen = true;
+
           if(wieIsAanDeBeurt >= this.aantalSpelers-1){
             wieIsAanDeBeurt = 0;
             }
           else {
             wieIsAanDeBeurt++;
           }
+
         }
       }
   }
@@ -207,6 +217,7 @@ class Spel {
 
   start(){
     this.maakKaartenAan();
+    this.schudtOngebruikteKaarten();
     this.geefSpelersKaarten();
 
     //tijdelijk
@@ -215,15 +226,10 @@ class Spel {
 
     this.updateKaarten();
 
+    this.geefBeurtAanVolgende();
 
   }
 
-  maakKaartenAan() {
-    //kaarten aanmaken.
-    for (var i = 0; i < 80; i++) {
-      this.ongebruikteKaarten.push(new Kaart("5", "Rood", i));
-    }
-  }
 
   geefSpelersKaarten() {
     for (let i = 0; i < 7; i++) {
@@ -233,6 +239,73 @@ class Spel {
       }
     }
 
+  }
+
+
+//************************
+//** Kaarten aanmaken ****
+
+maakKaartenAan() {
+  //kaarten aanmaken.
+  this.maak4NulKaarten();
+
+  this.maak9KaartenVanKleur1tot9("rood");
+  this.maak9KaartenVanKleur1tot9("rood");
+
+  this.maak9KaartenVanKleur1tot9("geel");
+  this.maak9KaartenVanKleur1tot9("geel");
+
+  this.maak9KaartenVanKleur1tot9("blauw");
+  this.maak9KaartenVanKleur1tot9("blauw");
+
+  this.maak9KaartenVanKleur1tot9("groen");
+  this.maak9KaartenVanKleur1tot9("groen");
+
+  // this.maakSpecialeKaarten("+2", "+2");
+  // this.maakSpecialeKaarten("+2", "+2");
+  //
+  this.maakSpecialeKaarten("reverse", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>sync</i>");
+  this.maakSpecialeKaarten("reverse", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>sync</i>");
+
+  // this.maakSpecialeKaarten("skip", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>do_not_disturb_alt</i>");
+  // this.maakSpecialeKaarten("skip", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>do_not_disturb_alt</i>");
+
+  // this.maakWildcarts("*+4", "+4");
+  // this.maakWildcarts("*", "");
+}
+  maak9KaartenVanKleur1tot9(kleur) {
+    for (var i = 1; i < 10; i++) {
+      this.ongebruikteKaarten.push(new Kaart(i, kleur, i, ++this.uniekeId));
+    }
+  }
+
+  maak4NulKaarten(){
+    var kleuren = ["rood", "blauw", "groen", "geel"];
+    for (var i = 0; i < 4; i++) {
+      this.ongebruikteKaarten.push(new Kaart("0", kleuren[i], "0", ++this.uniekeId));
+    }
+  }
+
+  maakSpecialeKaarten(waarde, waardeOpScherm){
+    var kleuren = ["rood", "blauw", "groen", "geel"];
+    for (var i = 0; i < kleuren.length; i++) {
+      this.ongebruikteKaarten.push(new Kaart(waarde, kleuren[i], waardeOpScherm, ++this.uniekeId));
+    }
+  }
+  maakWildcarts(waarde, waardeOpScherm){
+    for (var i = 0; i < 4; i++) {
+      this.ongebruikteKaarten.push(new Kaart(waarde, "zwart", waardeOpScherm, ++this.uniekeId));
+    }
+  }
+
+  schudtOngebruikteKaarten(){
+    var j, x, i;
+     for (i = this.ongebruikteKaarten.length - 1; i > 0; i--) {
+         j = Math.floor(Math.random() * (i + 1));
+         x = this.ongebruikteKaarten[i];
+         this.ongebruikteKaarten[i] = this.ongebruikteKaarten[j];
+         this.ongebruikteKaarten[j] = x;
+     }
   }
 
 }

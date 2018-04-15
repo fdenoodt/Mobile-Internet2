@@ -1,7 +1,8 @@
 class Kaart {
-  constructor(waarde, kleur, idee) {
+  constructor(waarde, kleur, waardeOpScherm, idee) {
     this.waarde = waarde;
     this.kleur = kleur;
+    this.waardeOpScherm = waardeOpScherm;
     this.idee = idee;
   }
 
@@ -15,5 +16,9 @@ class Kaart {
 
   get getIdee(){
     return this.idee;
+  }
+
+  get getWaardeOpScherm(){
+    return this.waardeOpScherm;
   }
 }
