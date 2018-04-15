@@ -101,3 +101,12 @@ body {
   background-position: center center;
   background-size: contain;
 }
+
+#controls button{
+  z-index: 20;
+  position:  absolute;
+  right: 0;
+  bottom: 0;
+  margin-right: 0.5%;
+  margin-bottom: 0.5%; 
+}
