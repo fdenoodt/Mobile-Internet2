@@ -1,0 +1,112 @@
+body {
+    padding: 0;
+    margin: 0;
+    /* ervoor zorgen dat ze niets kunnen selecteren, die blauwe kleur is vervelend. */
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;
+            width: 100vw;
+            height: 100vh;
+}
+
+#eindScherm, #startScherm{
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+    font-size: 26px;
+    padding-top: 20vh;
+    background-color: #F7F7F9;
+}
+#eindScherm{
+  display: none;
+}
+
+#terrein{
+  display: none;
+  position: absolute;
+  background-color: #F7F7F9;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
+#terreinHoofdSpeler, #terreinBot1, #terreinBot2, #terreinBot3, #terreinAlgemeen{
+  position: absolute;
+  left: 0;
+  top: 0;
+
+}
+
+
+.kaart{
+  position: absolute;
+  width: 80;
+  height: 120px;
+  padding: 0;
+  margin: 0;
+
+}
+
+/* .rood{
+    background-color: tomato;
+      color: tomato;
+} */
+
+
+.rood {
+    color: #DC3545;
+    background-color: #DC3545;
+    border: 1px solid #DC3545;
+}
+
+.blauw {
+    color: #007BFF;
+    background-color: #007BFF;
+}
+
+.groen {
+    color: #28A745;
+    background-color: #28A745;
+}
+
+.geel {
+    color: #FFC107;
+    background-color: #FFC107;
+}
+.zwart { color: black; background-color: black;}
+
+
+.binnenKaart{
+  background-color: white;
+  margin-top: 30px;
+  /* width: 102px;
+  margin-left: -1px; */
+  height: 60px;
+  text-align: center;
+
+  font-size: 250%;
+  font-weight: bold;
+  font-family: 'Roboto Slab', serif;
+}
+
+.kaartWaarde{
+  font-size: 700px;
+}
+.zw{
+  background-image: url(img/wildcard.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+}
+
+#controls button{
+  z-index: 20;
+  position:  absolute;
+  right: 0;
+  bottom: 0;
+  margin-right: 0.5%;
+  margin-bottom: 0.5%; 
+}
