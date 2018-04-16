@@ -49,6 +49,19 @@ class Speler {
     return geselecteerdeKaart;
   }
 
+// bot legt kaart
+botLegtKaart(){
+  for (var i = 0; i < this.kaarten.length; i++) {
+    if(this.controlleerOfKaartGelegdMagWorden(this.kaarten[i])){
+      this.zetKaartOpStapel(this.kaarten[i], this);
+      return;
+    }
+
+    //naam kaart
+
+  }
+}
+
 
 //----------------
   controlleerOfKaartGelegdMagWorden(kaart){

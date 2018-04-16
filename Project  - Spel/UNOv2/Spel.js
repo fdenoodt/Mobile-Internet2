@@ -173,6 +173,10 @@ class Spel {
       this.hoofdSpelerHeeftGelegd = false;
     setTimeout(function () {
       that.wieAanDeBeurt = that.kijkWieVolgendeIs();
+      console.log("--------");
+      console.log(that.wieAanDeBeurt);
+      console.log("--------");
+      this.spelers[that.wieAanDeBeurt].botLegtKaart();
       that.geefBeurtAanVolgende();
       }, 1000);
     }
@@ -227,8 +231,6 @@ class Spel {
 
     this.updateKaarten();
     this.geefBeurtAanVolgende();
-
-    this.speelMuziek();
   }
 
 
@@ -262,17 +264,17 @@ maakKaartenAan() {
   this.maak9KaartenVanKleur1tot9("groen");
   this.maak9KaartenVanKleur1tot9("groen");
 
-  // this.maakSpecialeKaarten("+2", "+2");
-  // this.maakSpecialeKaarten("+2", "+2");
-  //
+  this.maakSpecialeKaarten("+2", "+2");
+  this.maakSpecialeKaarten("+2", "+2");
+
   this.maakSpecialeKaarten("reverse", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>sync</i>");
   this.maakSpecialeKaarten("reverse", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>sync</i>");
 
-  // this.maakSpecialeKaarten("skip", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>do_not_disturb_alt</i>");
-  // this.maakSpecialeKaarten("skip", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>do_not_disturb_alt</i>");
+  this.maakSpecialeKaarten("skip", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>do_not_disturb_alt</i>");
+  this.maakSpecialeKaarten("skip", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>do_not_disturb_alt</i>");
 
-  // this.maakWildcarts("*+4", "+4");
-  // this.maakWildcarts("*", "");
+  this.maakWildcarts("*+4", "+4");
+  this.maakWildcarts("*", "");
 }
   maak9KaartenVanKleur1tot9(kleur) {
     for (var i = 1; i < 10; i++) {
@@ -307,29 +309,6 @@ maakKaartenAan() {
          this.ongebruikteKaarten[i] = this.ongebruikteKaarten[j];
          this.ongebruikteKaarten[j] = x;
      }
-  }
-
-  // --------------------------
-  // speelMuziek
-
-
-  speelMuziek(){
-    this.audio = new Audio('sounds/song1.mp3');
-    let that = this;
-    this.audio.play();
-     //liedje is 144 sec. ik weet niet hoe ik var kan oproepen. dus hard gecodeerd
-    setTimeout(function(){ that.speelMuziek(); }, 144000);
-  }
-
-  toggleMuziek(){
-    this.audio.muted = !(this.audio.muted);
-    if(this.audio.muted)
-      $("#audio").html('volume_off');
-    else
-      $("#audio").html('volume_up');
-
-    //// TODO:
-    //NOG IETS TOEVOEGEN DAT JE KEUZE OPGESLAGEN WORDT
   }
 
 }

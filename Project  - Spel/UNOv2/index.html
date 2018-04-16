@@ -13,6 +13,7 @@
   <script src="Kaart.js"></script>
   <script src="Spel.js"></script>
   <script src="Speler.js"></script>
+  <script src="Muziek.js"></script>
 </head>
 <body style="overflow:hidden;">
   <div class="startScherm jumbotron jumbotron-fluid" id="startScherm">
@@ -26,7 +27,7 @@
   </div>
   <div id = "terrein">
     <div id = "controls">
-      <button type="button" class="btn btn-danger" onclick="spel.toggleMuziek()"><i id = "audio" class="material-icons">volume_up</i></button>
+      <button type="button" class="btn btn-danger" onclick="muziek.toggleMuziek()"><i id = "audio" class="material-icons">volume_up</i></button>
     </div>
     <div id = "terreinBot1"></div>
     <div id = "terreinBot2"></div>
@@ -56,6 +57,7 @@ function toonVeld() {
   maakSpelEnSpelers();
 }
 var spel;
+var muziek;
 function maakSpelEnSpelers(){
   let hoofdSpeler = new Speler("Fab", "terreinHoofdSpeler");
   let bot1 = new Speler("Bot1", "terreinBot1");
@@ -64,6 +66,8 @@ function maakSpelEnSpelers(){
 
   spel = new Spel(hoofdSpeler, bot1, bot2, bot3);
   spel.start();
+  muziek = new Muziek();
+  muziek.play();
 
 }
 
