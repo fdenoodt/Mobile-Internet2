@@ -59,10 +59,10 @@ function toonVeld() {
 var spel;
 var muziek;
 function maakSpelEnSpelers(){
-  let hoofdSpeler = new Speler("Fab", "terreinHoofdSpeler");
-  let bot1 = new Speler("Bot1", "terreinBot1");
-  let bot2 = new Speler("Bot2", "terreinBot2");
-  let bot3 = new Speler("Bot3", "terreinBot3");
+  let hoofdSpeler = new Speler("Fab", "terreinHoofdSpeler", true);
+  let bot1 = new Speler("Bot1", "terreinBot1", false);
+  let bot2 = new Speler("Bot2", "terreinBot2", false);
+  let bot3 = new Speler("Bot3", "terreinBot3", false);
 
   spel = new Spel(hoofdSpeler, bot1, bot2, bot3);
   spel.start();

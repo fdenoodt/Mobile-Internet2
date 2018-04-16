@@ -1,9 +1,10 @@
 class Speler {
-  constructor(naam, terrein) {
+  constructor(naam, terrein, isHoofdspeler) {
     this.naam = naam;
     this.kaarten = new Array();
     this.terrein = terrein;
     this.magLeggen = true;
+    this.isHoofdspeler = isHoofdspeler;
   }
 
   get getKaarten(){
@@ -51,15 +52,14 @@ class Speler {
 
 // bot legt kaart
 botLegtKaart(){
+
   for (var i = 0; i < this.kaarten.length; i++) {
     if(this.controlleerOfKaartGelegdMagWorden(this.kaarten[i])){
       this.zetKaartOpStapel(this.kaarten[i], this);
       return;
     }
-
-    //naam kaart
-
   }
+  console.log(this.naam + " moet kaart nemen");
 }
 
 
@@ -85,10 +85,14 @@ botLegtKaart(){
     if(index > -1) {
       this.kaarten.splice(index, 1);
 
-      spel.updateKaartenHoofdSpeler();
-      spel.updateAlgemeneKaarten();
-      spel.hoofdSpelerHeeftGelegd = true;
-      spel.geefBeurtAanVolgende();
+      // spel.updateKaartenHoofdSpeler();
+      spel.updateKaarten();
+      // spel.updateAlgemeneKaarten();
+
+      if(this.isHoofdspeler){
+        spel.hoofdSpelerHeeftGelegd = true;
+        spel.geefBeurtAanVolgende();
+      }
     }
   }
 

@@ -169,14 +169,16 @@ class Spel {
     //bron = https://stackoverflow.com/questions/591269/settimeout-and-this-in-javascript
 
     console.log(this.wieAanDeBeurt);
+
+    if(this.wieAanDeBeurt != 0){
+      this.spelers[this.wieAanDeBeurt].botLegtKaart();
+    }
+
     if(this.wieAanDeBeurt != 0 || this.hoofdSpelerHeeftGelegd){
       this.hoofdSpelerHeeftGelegd = false;
     setTimeout(function () {
       that.wieAanDeBeurt = that.kijkWieVolgendeIs();
-      console.log("--------");
-      console.log(that.wieAanDeBeurt);
-      console.log("--------");
-      this.spelers[that.wieAanDeBeurt].botLegtKaart();
+      // that.spelers[that.wieAanDeBeurt].botLegtKaart();
       that.geefBeurtAanVolgende();
       }, 1000);
     }
@@ -184,33 +186,60 @@ class Spel {
 
 
     kijkWieVolgendeIs(){
-      let wieIsAanDeBeurt = this.wieAanDeBeurt;
-
-      if(wieIsAanDeBeurt >= this.aantalSpelers-1){
-        wieIsAanDeBeurt = 0;
-        }
-      else {
-        wieIsAanDeBeurt++;
-      }
-
-      for(let i = 0; i<=4; i++){
-        if(!this.uitgespeeldeSpelers.includes(wieIsAanDeBeurt) && this.spelers[wieIsAanDeBeurt].magLeggen){
-          return wieIsAanDeBeurt;
-        }
-        else {
-
-          //mag leggen op true, want heeft beurt overgeslaan.
-          this.spelers[wieIsAanDeBeurt].magLeggen = true;
-
-          if(wieIsAanDeBeurt >= this.aantalSpelers-1){
-            wieIsAanDeBeurt = 0;
-            }
-          else {
-            wieIsAanDeBeurt++;
+      let wieIsAanDeBeurt = this.wieAanDeBeurt
+      // DIT IS VRESELIJK GEPROGRAMMEERD, maar voorlopig doet het zijn job.
+      if(this.spelRichtingIsKlokWijs){
+        if(wieIsAanDeBeurt >= this.aantalSpelers-1){
+          wieIsAanDeBeurt = 0;
           }
+        else {
+          wieIsAanDeBeurt++;
+        }
 
+        for(let i = 0; i<=4; i++){
+          if(!this.uitgespeeldeSpelers.includes(wieIsAanDeBeurt) && this.spelers[wieIsAanDeBeurt].magLeggen){
+            return wieIsAanDeBeurt;
+          }
+          else {
+            //mag leggen op true, want heeft beurt overgeslaan.
+            this.spelers[wieIsAanDeBeurt].magLeggen = true;
+
+            if(wieIsAanDeBeurt >= this.aantalSpelers-1){
+              wieIsAanDeBeurt = 0;
+              }
+            else {
+              wieIsAanDeBeurt++;
+            }
+          }
         }
       }
+      else {
+        if(wieIsAanDeBeurt <= 0){
+          wieIsAanDeBeurt = this.aantalSpelers-1;
+          }
+        else {
+          wieIsAanDeBeurt--;
+        }
+        for(let i = 4; i>=0; i--){
+          if(!this.uitgespeeldeSpelers.includes(wieIsAanDeBeurt) && this.spelers[wieIsAanDeBeurt].magLeggen){
+            return wieIsAanDeBeurt;
+          }
+          else {
+            //mag leggen op true, want heeft beurt overgeslaan.
+            this.spelers[wieIsAanDeBeurt].magLeggen = true;
+
+            if(wieIsAanDeBeurt <= 0){
+              wieIsAanDeBeurt = this.aantalSpelers-1;
+              }
+            else {
+              wieIsAanDeBeurt--;
+            }
+          }
+        }
+      }
+
+
+
   }
 
 
@@ -266,19 +295,19 @@ maakKaartenAan() {
 
   this.maakSpecialeKaarten("+2", "+2");
   this.maakSpecialeKaarten("+2", "+2");
-
+  //
   this.maakSpecialeKaarten("reverse", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>sync</i>");
   this.maakSpecialeKaarten("reverse", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>sync</i>");
 
   this.maakSpecialeKaarten("skip", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>do_not_disturb_alt</i>");
   this.maakSpecialeKaarten("skip", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>do_not_disturb_alt</i>");
 
-  this.maakWildcarts("*+4", "+4");
-  this.maakWildcarts("*", "");
+  // this.maakWildcarts("*+4", "+4");
+  // this.maakWildcarts("*", "");
 }
   maak9KaartenVanKleur1tot9(kleur) {
     for (var i = 1; i < 10; i++) {
-      this.ongebruikteKaarten.push(new Kaart(i, kleur, i, ++this.uniekeId));
+      this.ongebruikteKaarten.push(new Kaart(""+i, kleur, i, ++this.uniekeId));
     }
   }
 
@@ -292,12 +321,12 @@ maakKaartenAan() {
   maakSpecialeKaarten(waarde, waardeOpScherm){
     var kleuren = ["rood", "blauw", "groen", "geel"];
     for (var i = 0; i < kleuren.length; i++) {
-      this.ongebruikteKaarten.push(new Kaart(waarde, kleuren[i], waardeOpScherm, ++this.uniekeId));
+      this.ongebruikteKaarten.push(new Kaart(""+waarde, kleuren[i], waardeOpScherm, ++this.uniekeId));
     }
   }
   maakWildcarts(waarde, waardeOpScherm){
     for (var i = 0; i < 4; i++) {
-      this.ongebruikteKaarten.push(new Kaart(waarde, "zwart", waardeOpScherm, ++this.uniekeId));
+      this.ongebruikteKaarten.push(new Kaart(""+waarde, "zwart", waardeOpScherm, ++this.uniekeId));
     }
   }
 
