@@ -15,8 +15,10 @@ class Speler {
     return this.terrein;
   }
 
-  geefKaart(kaart){
+  geefKaart(){
+    let kaart = spel.ongebruikteKaarten[0]
     this.kaarten.push(kaart);
+    spel.ongebruikteKaarten.shift();
   }
 
 // --------------------------------------
@@ -97,24 +99,35 @@ botLegtKaart(){
   }
 
   controlleerOpSpecialeKaarten(kaart){
+    //+2
     if(kaart.getWaarde == "+2"){
       console.log("De volgende speler zou 2 kaarten extra moeten nemen.");
+      console.log(spel.geefVolgendeWieIsMaarGeefPersoon());
+      spel.geefVolgendeWieIsMaarGeefPersoon().geefKaart();
+      spel.geefVolgendeWieIsMaarGeefPersoon().geefKaart();
+      console.log(spel.geefVolgendeWieIsMaarGeefPersoon());
     }
+    // klokwijs
     else if (kaart.getWaarde == "reverse"){
       console.log("reverse");
       spel.spelRichtingIsKlokWijs = !spel.spelRichtingIsKlokWijs;
     }
+    //block
     else if(kaart.getWaarde == "skip"){
       console.log(spel.kijkWieVolgendeIs() + "- Skip");
       spel.spelers[spel.kijkWieVolgendeIs()].magLeggen = false;
     }
+    //wildcard
     else if(kaart.getWaarde == "*"){
       console.log("kies kaart");
     }
+    //wildcard +4
     else if(kaart.getWaarde == "*+4"){
       console.log("kies kaart + volgende +4");
     }
   }
+
+
 
 // --------------------------------------
 

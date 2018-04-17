@@ -33,6 +33,9 @@ class Spel {
   }
 
 
+  // returnSpeler(let deWelke){
+  //   return this.spelers[deWelke];
+  // }
 
 //*** kaarten van spelers updaten en weergeven ***
 //************************************************
@@ -44,13 +47,13 @@ class Spel {
 
   updateKaartenHoofdSpeler() {
     let output = "";
-    let breedteScherm = $(window).width()*(70/100);
+    let breedteScherm = $(window).width();
     let hoogteScherm = $(window).height();
     let hoogteKaart = 120;
     let breedteKaart = 80;
 
     let aantalKaarten = this.spelers[0].getKaarten.length;
-    let ruimteTussenKaarten = breedteScherm/aantalKaarten;
+    let ruimteTussenKaarten = (breedteScherm/aantalKaarten)*0.7;
     if(ruimteTussenKaarten > 121)
       ruimteTussenKaarten = 90;
 
@@ -237,11 +240,11 @@ class Spel {
           }
         }
       }
-
-
-
   }
 
+geefVolgendeWieIsMaarGeefPersoon(){
+  return this.spelers[this.kijkWieVolgendeIs()];
+}
 
 
 
@@ -264,10 +267,9 @@ class Spel {
 
 
   geefSpelersKaarten() {
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 20; i++) {
       for(let tijdSpeler = 0; tijdSpeler<this.aantalSpelers; tijdSpeler++){
-        this.spelers[tijdSpeler].geefKaart(this.ongebruikteKaarten[0]);
-        this.ongebruikteKaarten.shift();
+        this.spelers[tijdSpeler].geefKaart();
       }
     }
 
@@ -284,23 +286,24 @@ maakKaartenAan() {
   this.maak9KaartenVanKleur1tot9("rood");
   this.maak9KaartenVanKleur1tot9("rood");
 
-  this.maak9KaartenVanKleur1tot9("geel");
-  this.maak9KaartenVanKleur1tot9("geel");
+  this.maak9KaartenVanKleur1tot9("rood");
+  this.maak9KaartenVanKleur1tot9("rood");
 
+  this.maak9KaartenVanKleur1tot9("rood");
   this.maak9KaartenVanKleur1tot9("blauw");
+
+  this.maak9KaartenVanKleur1tot9("rood");
+  this.maak9KaartenVanKleur1tot9("blauw");this.maak9KaartenVanKleur1tot9("rood");
+  this.maak9KaartenVanKleur1tot9("blauw");this.maak9KaartenVanKleur1tot9("rood");
   this.maak9KaartenVanKleur1tot9("blauw");
 
-  this.maak9KaartenVanKleur1tot9("groen");
-  this.maak9KaartenVanKleur1tot9("groen");
 
-  this.maakSpecialeKaarten("+2", "+2");
-  this.maakSpecialeKaarten("+2", "+2");
+  // //
+  this.maakSpecialeKaarten("reverse", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>sync</i>");
+  this.maakSpecialeKaarten("reverse", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>sync</i>");
   //
-  this.maakSpecialeKaarten("reverse", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>sync</i>");
-  this.maakSpecialeKaarten("reverse", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>sync</i>");
-
-  this.maakSpecialeKaarten("skip", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>do_not_disturb_alt</i>");
-  this.maakSpecialeKaarten("skip", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>do_not_disturb_alt</i>");
+  // this.maakSpecialeKaarten("skip", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>do_not_disturb_alt</i>");
+  // this.maakSpecialeKaarten("skip", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>do_not_disturb_alt</i>");
 
   // this.maakWildcarts("*+4", "+4");
   // this.maakWildcarts("*", "");
