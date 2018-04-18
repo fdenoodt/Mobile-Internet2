@@ -6,19 +6,23 @@ class Kaart {
     this.idee = idee;
   }
 
-  get getWaarde(){
+  get getWaarde() {
     return this.waarde;
   }
 
-  get getKleur(){
+  setKleur(value) {
+    this.kleur = value;
+  }
+
+  get getKleur() {
     return this.kleur;
   }
 
-  get getIdee(){
+  get getIdee() {
     return this.idee;
   }
 
-  get getWaardeOpScherm(){
+  get getWaardeOpScherm() {
     return this.waardeOpScherm;
   }
 }

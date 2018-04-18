@@ -82,8 +82,7 @@ body {
 .binnenKaart{
   background-color: white;
   margin-top: 30px;
-  /* width: 102px;
-  margin-left: -1px; */
+
   height: 60px;
   text-align: center;
 
@@ -109,4 +108,58 @@ body {
   bottom: 0;
   margin-right: 0.5%;
   margin-bottom: 0.5%; 
+}
+
+
+#kleurKiezer{
+  display: none;
+  position: absolute;
+  width: 40vw;
+  height: 20vh;
+  left: 300;
+  bottom: 0;
+  color: white;
+  font-size: 150%;
+  z-index: 100000;
+  /* margin-bottom: 20vh; */
+   
+}
+
+#kleurKiezer button{
+  border: none;
+  width: 10vh;
+  height: 10vh; 
+  margin: 0; padding: 0;
+  text-align: center;
+  margin-top: 5vh;
+}
+
+.btnKiesKleur1{
+  background-color: tomato;  
+}
+
+
+/* .rood:active{
+  background-color: red;
+}
+.blauw:active{
+  background-color: red;
+}
+.groen:active{
+  background-color: red;
+} */
+.geel:active, .groen:active, .blauw:active,.rood:active{
+   filter: brightness(85%);;
+}
+
+
+#binnenKleur{
+    position: relative; 
+    text-align: center; 
+    width: 100%; 
+    height: 100%; 
+    /* background-color: rgb(102, 51, 153);  */
+    border-radius: 20px 0% 20px 0;
+    background: -webkit-linear-gradient(rgba(100,100, 100, 0.9), rgba(100,100, 100, 1));
+        
 }

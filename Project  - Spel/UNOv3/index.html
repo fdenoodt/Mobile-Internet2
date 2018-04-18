@@ -1,12 +1,13 @@
 <!DOCTYPE>
 <html>
+
 <head>
   <title>UNO v2</title>
   <!-- viewpoort ingesteld zodat double tap niet meer inzoomt op mobiel. (dit veroorzakt bugs) -->
   <meta name="viewport" content="user-scalable=0">
   <link href="style.css" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -15,63 +16,82 @@
   <script src="Speler.js"></script>
   <script src="Muziek.js"></script>
 </head>
+
 <body style="overflow:hidden;">
   <div class="startScherm jumbotron jumbotron-fluid" id="startScherm">
     <h1 class="display-4">UNO</h1>
     <p class="lead" id="resultaten">
-        Welcome to UNO.<br>
-        A remake of the game, created by Fabian Denoodt.
-        <br>
-        <button type="button" class="btn btn-danger" onclick="toonVeld()">Start playing</button>
+      Welcome to UNO.
+      <br> A remake of the game, created by Fabian Denoodt.
+      <br>
+      <button type="button" class="btn btn-danger" onclick="toonVeld()">Start playing</button>
     </p>
   </div>
-  <div id = "terrein">
-    <div id = "controls">
-      <button type="button" class="btn btn-danger" onclick="muziek.toggleMuziek()"><i id = "audio" class="material-icons">volume_up</i></button>
+
+
+  <div id="terrein">
+    <div id="controls">
+      <button type="button" class="btn btn-danger" onclick="muziek.toggleMuziek()">
+        <i id="audio" class="material-icons">volume_up</i>
+      </button>
     </div>
-    <div id = "terreinBot1"></div>
-    <div id = "terreinBot2"></div>
-    <div id = "terreinBot3"></div>
-    <div id = "terreinHoofdSpeler">
+    <div id="terreinBot1"></div>
+    <div id="terreinBot2"></div>
+    <div id="terreinBot3"></div>
+    <div id="terreinHoofdSpeler">
 
       <!-- <div class ="kaart zwart" id = "5">
         <div class = "binnenKaart zw">
           +4
         </div>
       </div> -->
-<!-- <img src="img/wildcard.png" style="height: 100%;"/> -->
+      <!-- <img src="img/wildcard.png" style="height: 100%;"/> -->
 
     </div>
-    <div id = "terreinAlgemeen"></div>
+    <div id="terreinAlgemeen"></div>
 
+    <div id="kleurKiezer">
+        <div id="binnenKleur">
+          <button class="rood"></button>
+          <button class="blauw"></button>
+          <button class="groen"></button>
+          <button class="geel"></button>
+        </div>
+      </div>
   </div>
 
 
 
-<script>
+  <script>
 
-function toonVeld() {
-  $(".startScherm").fadeOut("slow");
-  $("#terrein").fadeIn("slow");
+    function toonVeld() {
+      $(".startScherm").fadeOut("slow");
+      $("#terrein").fadeIn("slow");
 
-  maakSpelEnSpelers();
-}
-var spel;
-var muziek;
-function maakSpelEnSpelers(){
-  let hoofdSpeler = new Speler("Fab", "terreinHoofdSpeler", true);
-  let bot1 = new Speler("Bot1", "terreinBot1", false);
-  let bot2 = new Speler("Bot2", "terreinBot2", false);
-  let bot3 = new Speler("Bot3", "terreinBot3", false);
+      maakSpelEnSpelers();
+    }
+    var spel;
+    var muziek;
+    function maakSpelEnSpelers() {
+      let hoofdSpeler = new Speler("Fab", "terreinHoofdSpeler", true);
+      let bot1 = new Speler("Bot1", "terreinBot1", false);
+      let bot2 = new Speler("Bot2", "terreinBot2", false);
+      let bot3 = new Speler("Bot3", "terreinBot3", false);
 
-  spel = new Spel(hoofdSpeler, bot1, bot2, bot3);
-  spel.start();
-  muziek = new Muziek();
-  muziek.play();
+      spel = new Spel(hoofdSpeler, bot1, bot2, bot3);
+       spel.start();
+      muziek = new Muziek();
+      muziek.play();
 
-}
+      // $("#kleurKiezer").fadeIn("slow");
+      // document.getElementById("kleurKiezer").style.display = "block";
+
+      
+
+    }
 
 
-</script>
+  </script>
 </body>
+
 </html>

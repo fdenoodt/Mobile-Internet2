@@ -10,6 +10,10 @@ class Muziek {
   play(){
     let that = this;
     this.audio.play();
+    
+    //DIT LATER WEG DOEN
+      this.audio.muted = true;
+    //
     //liedje is 144 sec. ik weet niet hoe ik var kan oproepen. dus hard gecodeerd
     setTimeout(function(){ that.play(); }, 144000);
   }
