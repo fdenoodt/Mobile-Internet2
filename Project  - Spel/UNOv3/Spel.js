@@ -136,6 +136,10 @@ class Spel {
 
   updateAlgemeneKaarten() {
 
+    var wildcard = "";
+      if (this.gebruikteKaarten[0].getWaarde == "*" || this.gebruikteKaarten[0].getWaarde == "*+4")
+        wildcard = "zw";
+
     var output =
       `
     <div class ="kaart ${this.gebruikteKaarten[0].getKleur}"
@@ -144,7 +148,7 @@ class Spel {
         left: ${$(window).width() / 2 - (60 / 2) - 40}px;
         top: ${($(window).height() / 2 - (80 / 2)) * 0.8}px;
       ">
-      <div class = "binnenKaart">
+      <div class = "binnenKaart ${wildcard}">
         ${this.gebruikteKaarten[0].getWaardeOpScherm}
       </div>
     </div>`;
@@ -285,24 +289,31 @@ class Spel {
   maakKaartenAan() {
     //kaarten aanmaken.
     this.maak4NulKaarten();
-    // let kleuren = ["rood", "blauw", "groen", "geel"];
-    let kleuren = ["rood", "rood", "rood", "rood"];
+    let kleuren = ["rood", "blauw", "groen", "geel"];
+    // let kleuren = ["rood", "rood", "rood", "rood"];
     for (let index = 0; index < kleuren.length; index++) {
       this.maak9KaartenVanKleur1tot9(kleuren[index]);
       this.maak9KaartenVanKleur1tot9(kleuren[index]);
     }
 
-    // this.maakSpecialeKaarten("+2", "+2");
-    // this.maakSpecialeKaarten("+2", "+2");
+    this.maakSpecialeKaarten("+2", "+2");
+    this.maakSpecialeKaarten("+2", "+2");
 
-    // this.maakSpecialeKaarten("reverse", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>sync</i>");
-    // this.maakSpecialeKaarten("reverse", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>sync</i>");
+    this.maakSpecialeKaarten("reverse", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>sync</i>");
+    this.maakSpecialeKaarten("reverse", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>sync</i>");
 
-    // this.maakSpecialeKaarten("skip", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>do_not_disturb_alt</i>");
-    // this.maakSpecialeKaarten("skip", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>do_not_disturb_alt</i>");
+    this.maakSpecialeKaarten("skip", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>do_not_disturb_alt</i>");
+    this.maakSpecialeKaarten("skip", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>do_not_disturb_alt</i>");
 
     this.maakWildcarts("*+4", "+4");
     this.maakWildcarts("*", "");
+
+    // this.maakWildcarts("*+4", "+4");
+    // this.maakWildcarts("*", "");this.maakWildcarts("*+4", "+4");
+    // this.maakWildcarts("*", "");this.maakWildcarts("*+4", "+4");
+    // this.maakWildcarts("*", "");this.maakWildcarts("*+4", "+4");
+    // this.maakWildcarts("*", "");this.maakWildcarts("*+4", "+4");
+    // this.maakWildcarts("*", "");
   }
   maak9KaartenVanKleur1tot9(kleur) {
     for (var i = 1; i < 10; i++) {

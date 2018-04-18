@@ -6,6 +6,7 @@ class Speler {
     this.magLeggen = true;
     this.isHoofdspeler = isHoofdspeler;
     this.heeftBeurtGelegd = false;
+    this.tijdelijkGeselecteerdeKaartVoorWildCard = null;
   }
 
   get getKaarten() {
@@ -82,15 +83,15 @@ class Speler {
   zetKaartOpStapel(kaart, speler) {
     spel.gebruikteKaarten.unshift(kaart); //toevoegen aan stapel
 
-    this.controlleerOpSpecialeKaarten(kaart);
-    console.log(kaart);
+    let _magLeggenWantGeenWildC = this.controlleerOpSpecialeKaarten(kaart);
+    // console.log(kaart);
     //kaart verwijderen
     let index = this.kaarten.indexOf(kaart);
     if (index > -1) {
       this.kaarten.splice(index, 1);
 
 
-      if (this.isHoofdspeler) {
+      if (this.isHoofdspeler && _magLeggenWantGeenWildC) {
         spel.hoofdSpelerHeeftGelegd = true;
         spel.geefBeurtAanVolgende();
       }
@@ -123,6 +124,7 @@ class Speler {
       //speler of bot
       if (this.isHoofdspeler) {
         this.kiesKleurPopUp(kaart);
+        return false;
       }
       else {
         this.kiesKleur(kaart);
@@ -137,13 +139,23 @@ class Speler {
 
       if (this.isHoofdspeler) {
         this.kiesKleurPopUp(kaart);
+        spel.geefVolgendeWieIsMaarGeefPersoon().geefKaart();
+        spel.geefVolgendeWieIsMaarGeefPersoon().geefKaart();
+        spel.updateKaarten();
+        spel.spelers[spel.kijkWieVolgendeIs()].magLeggen = false;
+        return false;
       }
       else {
         this.kiesKleur(kaart);
+        spel.geefVolgendeWieIsMaarGeefPersoon().geefKaart();
+        spel.geefVolgendeWieIsMaarGeefPersoon().geefKaart();
+        spel.updateKaarten();
+        spel.spelers[spel.kijkWieVolgendeIs()].magLeggen = false;
       }
-      
+
     }
 
+    return true;
   }
 
 
@@ -165,14 +177,31 @@ class Speler {
   }
 
 
-  kiesKleurPopUp(kaart){
-    kaart.setKleur("rood");
+  kiesKleurPopUp(kaart) {
+    this.tijdelijkGeselecteerdeKaartVoorWildCard = kaart;
     $("#kleurKiezer").fadeIn("slow");
+    
   }
 
-  kiesKleur(kaart){
+  veranderWildCardInGeselcteerdeKleur(_kleur) {
+    // this.tijdelijkGeselecteerdeKaartVoorWildCard.setKleur(_kleur);
+    $("#kleurKiezer").fadeOut("slow");
+    spel.gebruikteKaarten[0].setKleur(_kleur);
+    spel.hoofdSpelerHeeftGelegd = true;
+    
+    //DIT IS WEG OMDAT IK NOG ANIMATIES WIL TOEVOEGEN. MAAR ALS GEEN ANIM, DIT TURUG UPDATEN!
+    spel.updateKaarten();
+    
+    console.log(spel.gebruikteKaarten[0]);
+    
+    spel.geefBeurtAanVolgende();
+  }
+
+  //voor bots
+  kiesKleur(kaart) {
+    console.log("4");
+
+    spel.updateKaarten();
     kaart.setKleur("rood");
   }
-
-
 }

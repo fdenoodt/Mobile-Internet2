@@ -99,6 +99,7 @@ body {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
+  color: black;
 }
 
 #controls button{
