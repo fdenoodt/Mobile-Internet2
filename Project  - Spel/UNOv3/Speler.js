@@ -72,6 +72,7 @@ class Speler {
   controlleerOfKaartGelegdMagWorden(kaart) {
     if (kaart.getWaarde == spel.laatstGelegdeKaart.getWaarde || kaart.getKleur == spel.laatstGelegdeKaart.getKleur || kaart.getKleur == "zwart") {
       // console.log("kaart mag gelegd worden.");
+      this.kijkOfUitgespeeldIs();
       return true;
     }
     else {
@@ -180,7 +181,7 @@ class Speler {
   kiesKleurPopUp(kaart) {
     this.tijdelijkGeselecteerdeKaartVoorWildCard = kaart;
     $("#kleurKiezer").fadeIn("slow");
-    
+
   }
 
   veranderWildCardInGeselcteerdeKleur(_kleur) {
@@ -188,12 +189,12 @@ class Speler {
     $("#kleurKiezer").fadeOut("slow");
     spel.gebruikteKaarten[0].setKleur(_kleur);
     spel.hoofdSpelerHeeftGelegd = true;
-    
+
     //DIT IS WEG OMDAT IK NOG ANIMATIES WIL TOEVOEGEN. MAAR ALS GEEN ANIM, DIT TURUG UPDATEN!
     spel.updateKaarten();
-    
+
     console.log(spel.gebruikteKaarten[0]);
-    
+
     spel.geefBeurtAanVolgende();
   }
 
@@ -204,4 +205,18 @@ class Speler {
     spel.updateKaarten();
     kaart.setKleur("rood");
   }
+
+
+
+  kijkOfUitgespeeldIs() {
+    //op 1 al kijken omdat de kaart afgegevenn zal worden
+    if (this.kaarten.length == 1) {
+      spel.uitgespeeldeSpelers.push(spel.wieAanDeBeurt);
+      //kijk of spel afgelopen is
+      setTimeout(function () {
+        spel.kijkOfAfgelopen();
+      }, 1000);
+    }
+  }
+
 }

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>test web app</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="manifest" href="manifest.webmanifest">
+</head>
+
+<body>
+
+    <div id="output"></div>
+
+
+</body>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('worker.js');
+}
+
+// link to a image file
+var iconUrl = 'https://www.seeklogo.net/wp-content/uploads/2014/10/Google-Chrome-logo-vector-download.png';
+
+// create the <img> html element
+// on first load it will request the image
+// second time it will load it from cache directly thanks to the service worker
+var imgElement = document.createElement('img');
+imgElement.src = iconUrl;
+
+</script>
+
+</html>

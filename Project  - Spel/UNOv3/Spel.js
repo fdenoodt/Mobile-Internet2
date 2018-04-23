@@ -137,8 +137,8 @@ class Spel {
   updateAlgemeneKaarten() {
 
     var wildcard = "";
-      if (this.gebruikteKaarten[0].getWaarde == "*" || this.gebruikteKaarten[0].getWaarde == "*+4")
-        wildcard = "zw";
+    if (this.gebruikteKaarten[0].getWaarde == "*" || this.gebruikteKaarten[0].getWaarde == "*+4")
+      wildcard = "zw";
 
     var output =
       `
@@ -190,6 +190,7 @@ class Spel {
         that.wieAanDeBeurt = that.kijkWieVolgendeIs();
         that.geefBeurtAanVolgende();
         that.updateKaarten();
+
       }, 1000);
     }
   }
@@ -253,6 +254,16 @@ class Spel {
     return this.spelers[this.kijkWieVolgendeIs()];
   }
 
+  kijkOfAfgelopen(){
+    if(this.uitgespeeldeSpelers.length >= 3){ 
+      //eindig spel
+      this.updateKaarten();
+      console.log("Spel is afgelopen");
+      alert("afgelopen");
+
+    }
+  }
+
 
 
   // ***************************************
@@ -274,7 +285,7 @@ class Spel {
 
 
   geefSpelersKaarten() {
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 3; i++) {
       for (let tijdSpeler = 0; tijdSpeler < this.aantalSpelers; tijdSpeler++) {
         this.spelers[tijdSpeler].geefKaart();
       }
@@ -287,33 +298,30 @@ class Spel {
   //** Kaarten aanmaken ****
 
   maakKaartenAan() {
-    //kaarten aanmaken.
-    this.maak4NulKaarten();
-    let kleuren = ["rood", "blauw", "groen", "geel"];
-    // let kleuren = ["rood", "rood", "rood", "rood"];
+    // //kaarten aanmaken.
+
+    // this.maak4NulKaarten();
+    // let kleuren = ["rood", "blauw", "groen", "geel"];
+    let kleuren = ["rood", "rood", "rood", "rood"];
     for (let index = 0; index < kleuren.length; index++) {
       this.maak9KaartenVanKleur1tot9(kleuren[index]);
       this.maak9KaartenVanKleur1tot9(kleuren[index]);
     }
 
-    this.maakSpecialeKaarten("+2", "+2");
-    this.maakSpecialeKaarten("+2", "+2");
+    // this.maakSpecialeKaarten("+2", "+2");
+    // this.maakSpecialeKaarten("+2", "+2");
 
-    this.maakSpecialeKaarten("reverse", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>sync</i>");
-    this.maakSpecialeKaarten("reverse", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>sync</i>");
+    // this.maakSpecialeKaarten("reverse", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>sync</i>");
+    // this.maakSpecialeKaarten("reverse", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>sync</i>");
 
-    this.maakSpecialeKaarten("skip", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>do_not_disturb_alt</i>");
-    this.maakSpecialeKaarten("skip", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>do_not_disturb_alt</i>");
-
-    this.maakWildcarts("*+4", "+4");
-    this.maakWildcarts("*", "");
+    // this.maakSpecialeKaarten("skip", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>do_not_disturb_alt</i>");
+    // this.maakSpecialeKaarten("skip", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>do_not_disturb_alt</i>");
 
     // this.maakWildcarts("*+4", "+4");
-    // this.maakWildcarts("*", "");this.maakWildcarts("*+4", "+4");
-    // this.maakWildcarts("*", "");this.maakWildcarts("*+4", "+4");
-    // this.maakWildcarts("*", "");this.maakWildcarts("*+4", "+4");
-    // this.maakWildcarts("*", "");this.maakWildcarts("*+4", "+4");
+
+
     // this.maakWildcarts("*", "");
+
   }
   maak9KaartenVanKleur1tot9(kleur) {
     for (var i = 1; i < 10; i++) {

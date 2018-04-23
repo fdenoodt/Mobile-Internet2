@@ -7,26 +7,47 @@ class Muziek {
 
 
 
-  play(){
+  play() {
     let that = this;
     this.audio.play();
-    
-    //DIT LATER WEG DOEN
-      this.audio.muted = true;
-    //
+
+    if (this.muziekMoetGemuteWorden()) {
+      $("#audio").html('volume_off');
+    }
+    this.audio.muted = this.muziekMoetGemuteWorden();
+
+
+
+
     //liedje is 144 sec. ik weet niet hoe ik var kan oproepen. dus hard gecodeerd
-    setTimeout(function(){ that.play(); }, 144000);
+    setTimeout(function () { that.play(); }, 144000);
   }
 
-  toggleMuziek(){
+  toggleMuziek() {
     this.audio.muted = !(this.audio.muted);
-    if(this.audio.muted)
+    if (this.audio.muted)
       $("#audio").html('volume_off');
     else
       $("#audio").html('volume_up');
 
+    this.bewaarKeuze(this.audio.muted);
+
     //// TODO:
     //NOG IETS TOEVOEGEN DAT JE KEUZE OPGESLAGEN WORDT
+  }
+
+  bewaarKeuze(trueOfFalse) {
+    let magAfspelen = trueOfFalse;
+    localStorage.muteMuziek = JSON.stringify(magAfspelen);
+  }
+
+
+  muziekMoetGemuteWorden() {
+    let muteMuziek = JSON.parse(localStorage.muteMuziek);
+    if (muteMuziek)
+      return true;
+    else
+      return false;
   }
 
 }
