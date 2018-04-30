@@ -12,7 +12,7 @@ class Spel {
     this.ongebruikteKaarten = new Array();
     this.gebruikteKaarten = new Array();
     this.uitgespeeldeSpelers = new Array();
-    this.wieAanDeBeurt = 1;
+    this.wieAanDeBeurt = 0;
     this.spelRichtingIsKlokWijs = true;
     this.uniekeId = 0;
     this.hoofdSpelerHeeftGelegd = false;
@@ -85,11 +85,14 @@ class Spel {
   updateKaartenBots() {
 
     //bot 1
+
     var output = "";
     for (let j = 0; j < this.spelers[1].getKaarten.length; j++) {
       output +=
         `
-      <img src="img/uno_back.png" alt="afbeelding van uno kaart"
+      <img 
+      class="${this.spelers[1].getKaarten[j].getIdee}"
+      src="img/uno_back.png" alt="afbeelding van uno kaart"
       style="width: 60px; position: absolute;
       left: 20px;
       top: ${j * 40}px;
@@ -100,12 +103,15 @@ class Spel {
 
     document.getElementById(this.spelers[1].getTerrein).innerHTML = output;
 
+
     //bot 2
     output = "";
     for (let j = 0; j < this.spelers[2].getKaarten.length; j++) {
       output +=
         `
-      <img src="img/uno_back.png" alt="afbeelding van uno kaart"
+      <img
+      class="${this.spelers[2].getKaarten[j].getIdee}"
+      src="img/uno_back.png" alt="afbeelding van uno kaart"
       style="width: 60px; position: absolute;
       left: ${j * 40 + 120}px;
       top: ${15}px;
@@ -122,6 +128,7 @@ class Spel {
       output +=
         `
       <img src="img/uno_back.png" alt="afbeelding van uno kaart"
+      class="${this.spelers[3].getKaarten[j].getIdee}"
       style="width: 60px; position: absolute;
       left: ${$(window).width() - 60 - 20}px;
       top: ${j * 40}px;
@@ -131,8 +138,8 @@ class Spel {
     }
 
     document.getElementById(this.spelers[3].getTerrein).innerHTML = output;
-
   }
+
 
   updateAlgemeneKaarten() {
 
@@ -153,8 +160,9 @@ class Spel {
       </div>
     </div>`;
 
-    output +=
-      `
+    if (!(this.ongebruikteKaarten.length <= 0)) {
+      output +=
+        `
     <img src="img/uno_back.png" alt="te kiezen kaart"
       onclick="spel.spelers[0].neemRandomKaart()"
       style="
@@ -163,6 +171,7 @@ class Spel {
         top: ${($(window).height() / 2 - (80 / 2)) * 0.8}px;"
         >
     `;
+    }
 
 
     document.getElementById("terreinAlgemeen").innerHTML = output
@@ -254,13 +263,24 @@ class Spel {
     return this.spelers[this.kijkWieVolgendeIs()];
   }
 
-  kijkOfAfgelopen(){
-    if(this.uitgespeeldeSpelers.length >= 3){ 
+  kijkOfAfgelopen() {
+    if (this.uitgespeeldeSpelers.length >= 3) {
       //eindig spel
       this.updateKaarten();
       console.log("Spel is afgelopen");
-      alert("afgelopen");
+      let output = "";
+      for (let index = 0; index < this.uitgespeeldeSpelers.length; index++) {
+        output += `
+        ${index + 1}. ${this.spelers[this.uitgespeeldeSpelers[index]].naam} <br>
+        `;
+      }
+      output += `${this.uitgespeeldeSpelers.length + 1}. Not worth mentioning`;
 
+      // document.getElementById("resultaten").innerHTML = output;
+      $('.resultaten').html(output)
+
+      $("#terrein").fadeOut("slow");
+      $("#eindScherm").fadeIn("slow");
     }
   }
 
@@ -285,7 +305,7 @@ class Spel {
 
 
   geefSpelersKaarten() {
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 7; i++) {
       for (let tijdSpeler = 0; tijdSpeler < this.aantalSpelers; tijdSpeler++) {
         this.spelers[tijdSpeler].geefKaart();
       }
@@ -300,27 +320,27 @@ class Spel {
   maakKaartenAan() {
     // //kaarten aanmaken.
 
-    // this.maak4NulKaarten();
-    // let kleuren = ["rood", "blauw", "groen", "geel"];
-    let kleuren = ["rood", "rood", "rood", "rood"];
+    this.maak4NulKaarten();
+    let kleuren = ["rood", "blauw", "groen", "geel"];
+    // let kleuren = ["rood", "rood", "rood", "rood"];
     for (let index = 0; index < kleuren.length; index++) {
       this.maak9KaartenVanKleur1tot9(kleuren[index]);
-      this.maak9KaartenVanKleur1tot9(kleuren[index]);
+      this.maak9KaartenVanKleur1tot9(kleuren[index]); //moet terug zetten
     }
 
-    // this.maakSpecialeKaarten("+2", "+2");
-    // this.maakSpecialeKaarten("+2", "+2");
+    this.maakSpecialeKaarten("+2", "+2");
+    this.maakSpecialeKaarten("+2", "+2");
 
-    // this.maakSpecialeKaarten("reverse", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>sync</i>");
-    // this.maakSpecialeKaarten("reverse", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>sync</i>");
+    this.maakSpecialeKaarten("reverse", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>sync</i>");
+    this.maakSpecialeKaarten("reverse", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>sync</i>");
 
-    // this.maakSpecialeKaarten("skip", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>do_not_disturb_alt</i>");
-    // this.maakSpecialeKaarten("skip", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>do_not_disturb_alt</i>");
+    this.maakSpecialeKaarten("skip", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>do_not_disturb_alt</i>");
+    this.maakSpecialeKaarten("skip", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>do_not_disturb_alt</i>");
 
-    // this.maakWildcarts("*+4", "+4");
+    this.maakWildcarts("*+4", "+4");
 
 
-    // this.maakWildcarts("*", "");
+    this.maakWildcarts("*", "");
 
   }
   maak9KaartenVanKleur1tot9(kleur) {

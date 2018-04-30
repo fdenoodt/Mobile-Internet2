@@ -20,8 +20,8 @@ body {
     padding-top: 20vh;
     background-color: #F7F7F9;
 }
-#eindScherm{
-  display: none;
+#eindScherm{           
+  display: none; 
 }
 
 #terrein{

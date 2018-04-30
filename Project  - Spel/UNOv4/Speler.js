@@ -37,6 +37,8 @@ class Speler {
     if (this.controlleerOfKaartGelegdMagWorden(geselecteerdeKaart)) {
       this.heeftBeurtGelegd = true;
       this.zetKaartOpStapel(geselecteerdeKaart, spel.spelers[0]);
+      
+      animatie.zetKaartvanFabNaarMidden(geselecteerdeKaart);
     }
 
   }
@@ -57,9 +59,13 @@ class Speler {
 
   // bot legt kaart
   botLegtKaart() {
+    
     for (var i = 0; i < this.kaarten.length; i++) {
       if (this.controlleerOfKaartGelegdMagWorden(this.kaarten[i])) {
+        // this.heeftBeurtGelegd = true;
+        animatie.zetKaartvanBotNaarMidden(this.kaarten[i]);
         this.zetKaartOpStapel(this.kaarten[i], this);
+        
         return;
       }
     }

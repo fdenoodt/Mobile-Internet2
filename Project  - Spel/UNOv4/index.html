@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>UNO v2</title>
+  <title>UNO v4</title>
   <!-- viewpoort ingesteld zodat double tap niet meer inzoomt op mobiel. (dit veroorzakt bugs) -->
   <meta name="viewport" content="user-scalable=0">
   <link href="style.css" rel="stylesheet" type="text/css">
@@ -17,9 +17,12 @@
   <script src="Spel.js"></script>
   <script src="Speler.js"></script>
   <script src="Muziek.js"></script>
+  <script src="Animatie.js"></script>
 </head>
 
 <body style="overflow:hidden;">
+
+  <!-- begin spel -->
   <div class="startScherm jumbotron jumbotron-fluid" id="startScherm">
     <h1 class="display-4">UNO</h1>
     <p class="lead" id="resultaten">
@@ -30,7 +33,16 @@
     </p>
   </div>
 
+  <!-- eind scores -->
+  <div class="eindScherm jumbotron jumbotron-fluid" id="eindScherm">
+    <h1 class="display-4">Scores:</h1>
+    <p class="lead resultaten" id="resultaten">
+      fdsq
+    </p>
+    <button type="button" class="btn btn-danger" onclick="toonVeld()">Play again</button>
+  </div>
 
+  <!-- terrein -->
   <div id="terrein">
     <div id="controls">
       <button type="button" class="btn btn-danger" onclick="muziek.toggleMuziek()">
@@ -51,7 +63,9 @@
 
     </div>
     <div id="terreinAlgemeen"></div>
+    <div id="terreinVoorAnimaties"></div>
 
+    <!-- 4 kleuren kaart -->
     <div id="kleurKiezer">
       <div id="binnenKleur">
         <button class="rood" onclick="spel.spelers[0].veranderWildCardInGeselcteerdeKleur('rood')"></button>
@@ -74,6 +88,7 @@
     }
     var spel;
     var muziek;
+    var animatie;
     function maakSpelEnSpelers() {
       let hoofdSpeler = new Speler("Fab", "terreinHoofdSpeler", true);
       let bot1 = new Speler("Bot1", "terreinBot1", false);
@@ -82,13 +97,15 @@
 
       spel = new Spel(hoofdSpeler, bot1, bot2, bot3);
       spel.start();
+
+      animatie = new Animatie();
+      
       muziek = new Muziek();
       muziek.play();
 
 
       //kleurKiezer in het midden zetten.
       document.getElementById("kleurKiezer").style.left = ($(window).width() / 2) - ($("#kleurKiezer").width() / 2);
-
     }
 
 
@@ -98,7 +115,28 @@
 
 
 
-    // code voor web app
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //**************************************
+    // code voor web app (manifest)
+    //gecopierd van github
+    //***************************************
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('worker.js');
     }
