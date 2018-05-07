@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#2196f3">
+  <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap:">
+  <title>Framework7</title>
+  <link rel="stylesheet" href="../build/css/framework7.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="apple-touch-icon" href="img/f7-icon-square.png">
+  <link rel="icon" href="img/f7-icon.png">
+
+</head>
+
+<body>
+
+  <div id="app">
+    <div class="statusbar"></div>
+    <div class="view view-main view-init ios-edges" data-url="/">
+      <div data-name="home" class="page">
+        <!-- Top Navbar -->
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="title">Awesome App</div>
+          </div>
+        </div>
+        <!-- Scrollable page content -->
+        <div class="page-content">
+          <p>Page content goes here</p>
+          lel
+          <br>
+          <!-- Link to another page -->
+          <a href="/about/">About app</a>
+          <br>
+          <a href="/ik/">fdqs app</a>
+          <br>
+          <button onclick="obj.foo()">fdsq</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <script src="../build/js/framework7.js"></script>
+  <script src="js/routes.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    var obj = {
+      foo() {
+        alert("test");
+        // return "ekek";
+      }
+    }
+
+obj.foo();
+    // console.log(obj.foo());
+  </script>
+</body>
+
+</html>

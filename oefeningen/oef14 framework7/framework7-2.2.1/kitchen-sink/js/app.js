@@ -1,5 +1,5 @@
 // Dom7
-var $ = Dom7;
+var $$ = Dom7;
 
 // Theme
 var theme = 'auto';

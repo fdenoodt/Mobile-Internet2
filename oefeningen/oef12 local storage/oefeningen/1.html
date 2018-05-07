@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>local storage</title>
+	<meta name="description" content="" />
+	<meta name="author" content="Steven" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+		// "use strict";
+		/*global $ */
+	</script>
+</head>
+
+<body>
+	<input id="val1" type="text" placeholder="naam">
+	<br>
+	<input id="val2" type="text" placeholder="getal">
+	<br>
+	<button onclick="slaagOp()">Slaag op</button>
+	<button onclick="getVal()">Haal op</button>
+
+	<script>
+		function slaagOp() {
+			let val1 = $("#val1").val();
+			let val2 = $("#val2").val();
+			let mijnObject = {
+				naam: val1,
+				getal: val2
+			}
+			console.log(mijnObject);
+			localStorage.item = JSON.stringify(mijnObject);
+		}
+
+		function getVal() {
+			let test = localStorage.getItem("item");
+			// let opgeslagenWaarde = JSON.parse(localStorage.item);
+			console.log(JSON.parse(test));
+
+		}
+
+	</script>
+</body>
+
+</html>

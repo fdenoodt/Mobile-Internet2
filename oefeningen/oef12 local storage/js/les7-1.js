@@ -79,7 +79,7 @@ const idbKeyval = {
  * *************************** */
 
 let mijnObject = {
-    "naam" : "Ophalvens",
+    "naam" : "Fab",
     "voornaam" : "Steven",
     "vakken": {
         "Fase1":["MI1","MI2","NM1","NM2-D&T"],
@@ -89,13 +89,13 @@ let mijnObject = {
 };
 
 // bewaar mijnObject onder de key "een"
-idbKeyval.set("een",mijnObject);
+idbKeyval.set("mijnObject",mijnObject);
 // Je kan het nakijken via de dev-tools --> Application --> Storage --> IndexedDB
 
 // het object terug opvragen :
-idbKeyval.get("een").then(val => console.log(val));
+idbKeyval.get("mijnObject").then(val => console.log(val));
 // het vorige in de oudere js syntax :
-idbKeyval.get("een").then(function(val){
+idbKeyval.get("mijnObject").then(function(val){
     console.log(val);
 });
 
