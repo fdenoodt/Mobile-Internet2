@@ -1,0 +1,174 @@
+<!DOCTYPE>
+<html>
+
+<head>
+  <title>UNO</title>
+  <link rel="icon" href="icons/favi.ico" type="image/gif" sizes="16x16">
+  <!-- viewpoort ingesteld zodat double tap niet meer inzoomt op mobiel. (dit veroorzakt bugs) -->
+  <meta name="viewport" content="user-scalable=no">
+  
+  <link href="style.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="manifest" href="manifest.webmanifest">
+  <!-- web app!!!!!!-->
+  <script src="Kaart.js"></script>
+  <script src="Spel.js"></script>
+  <script src="Speler.js"></script>
+  <script src="Muziek.js"></script>
+  <script src="Animatie.js"></script>
+
+  <script src="../plugins/cordova-plugin-screen-orientation/wwww/screenorientation.js"></script>
+</head>
+
+<body style="overflow:hidden;">
+
+  <!-- begin spel -->
+  <div class="startScherm jumbotron jumbotron-fluid" id="startScherm">
+    <h1 class="display-4">UNO</h1>
+    <p class="lead" id="resultaten">
+      Welcome to UNO.
+      <br>
+      <a href="https://www.unorules.com/" target="_blank">How to play</a>
+      <br>
+      <button type="button" class="btn btn-danger" style="margin-bottom: 2em;margin-top: 1em;" onclick="toonVeld()">Start playing</button>
+      <br> A remake of the game, created by Fabian Denoodt.
+    </p>
+  </div>
+
+  <!-- eind scores -->
+  <div class="eindScherm jumbotron jumbotron-fluid" id="eindScherm">
+    <h1 class="display-4">Scores:</h1>
+    <p class="lead resultaten" id="resultaten">
+      fdsq
+    </p>
+    <button type="button" class="btn btn-danger" onclick="toonVeld()">Play again</button>
+  </div>
+
+  <!-- terrein -->
+  <div id="terrein">
+    <div id="controls">
+      <button type="button" class="btn btn-danger" onclick="muziek.toggleMuziek()">
+        <i id="audio" class="material-icons">volume_up</i>
+      </button>
+    </div>
+    <div id="terreinBot1"></div>
+    <div id="terreinBot2"></div>
+    <div id="terreinBot3"></div>
+    <div id="terreinHoofdSpeler">
+
+      <!-- <div class ="kaart zwart" id = "5">
+        <div class = "binnenKaart zw">
+          +4
+        </div>
+      </div> -->
+      <!-- <img src="img/wildcard.png" style="height: 100%;"/> -->
+
+    </div>
+    <div id="terreinAlgemeen"></div>
+    <div id="terreinVoorAnimaties"></div>
+
+    <!-- 4 kleuren kaart -->
+    <div id="kleurKiezer">
+      <div id="binnenKleur">
+        <button class="rood" onclick="spel.spelers[0].veranderWildCardInGeselcteerdeKleur('rood')"></button>
+        <button class="blauw" onclick="spel.spelers[0].veranderWildCardInGeselcteerdeKleur('blauw')"></button>
+        <button class="groen" onclick="spel.spelers[0].veranderWildCardInGeselcteerdeKleur('groen')"></button>
+        <button class="geel" onclick="spel.spelers[0].veranderWildCardInGeselcteerdeKleur('geel')"></button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script>
+
+    function toonVeld() {
+      $(".startScherm").fadeOut("slow");
+      $("#terrein").fadeIn("slow");
+
+      maakSpelEnSpelers();
+    }
+    var spel;
+    var muziek;
+    var animatie;
+    function maakSpelEnSpelers() {
+      let hoofdSpeler = new Speler("Fab", "terreinHoofdSpeler", true);
+      let bot1 = new Speler("Bot1", "terreinBot1", false);
+      let bot2 = new Speler("Bot2", "terreinBot2", false);
+      let bot3 = new Speler("Bot3", "terreinBot3", false);
+
+      spel = new Spel(hoofdSpeler, bot1, bot2, bot3);
+
+      animatie = new Animatie();
+      
+      spel.start();
+
+      
+      
+      muziek = new Muziek();
+      muziek.play();
+
+
+      //kleurKiezer in het midden zetten.
+      document.getElementById("kleurKiezer").style.left = ($(window).width() / 2) - ($("#kleurKiezer").width() / 2);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+// set to either landscape
+screen.orientation.lock('landscape');
+
+
+// access current orientation
+console.log('Orientation is ' + screen.orientation.type);
+
+
+
+document.ontouchmove = function(event){
+    event.preventDefault();
+}
+
+
+
+
+
+
+
+
+    //**************************************
+    // code voor web app (manifest)
+    //gecopierd van github
+    //***************************************
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('worker.js');
+    }
+
+    // link to a image file
+    var iconUrl = 'https://www.seeklogo.net/wp-content/uploads/2014/10/Google-Chrome-logo-vector-download.png';
+
+    // create the <img> html element
+    // on first load it will request the image
+    // second time it will load it from cache directly thanks to the service worker
+    var imgElement = document.createElement('img');
+    imgElement.src = iconUrl;
+
+
+
+  </script>
+</body>
+
+</html>
