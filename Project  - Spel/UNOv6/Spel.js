@@ -271,8 +271,8 @@ class Spel {
             let output = "";
             for (let index = 0; index < this.uitgespeeldeSpelers.length; index++) {
                 output += `
-        ${index + 1}. ${this.spelers[this.uitgespeeldeSpelers[index]].naam} <br>
-        `;
+                ${index + 1}. ${this.spelers[this.uitgespeeldeSpelers[index]].naam} <br>
+                `;
             }
             output += `${this.uitgespeeldeSpelers.length + 1}. Not worth mentioning`;
 
@@ -293,11 +293,22 @@ class Spel {
     start() {
         this.maakKaartenAan();
         this.schudtOngebruikteKaarten();
-        this.geefSpelersKaarten();
 
-        //tijdelijk
+
+        //begin kaart
         this.gebruikteKaarten[0] = this.ongebruikteKaarten[0];
         this.ongebruikteKaarten.shift();
+
+
+        //wildcards later toevoegen zodat spel niet hiermee begint 
+        //(dit is zwarte kaart. en kan enkel met wildcard op gelegd worden in begin)
+        this.maakWildcarts("*+4", "+4");
+        this.maakWildcarts("*", "");
+        this.schudtOngebruikteKaarten(); //opnieuw schudden
+
+        this.geefSpelersKaarten();
+
+
 
         this.updateKaarten();
         this.geefBeurtAanVolgende();
@@ -323,8 +334,8 @@ class Spel {
         this.maak4NulKaarten();
         let kleuren = ["rood", "blauw", "groen", "geel"];
         for (let index = 0; index < kleuren.length; index++) {
-          this.maak9KaartenVanKleur1tot9(kleuren[index]);
-          this.maak9KaartenVanKleur1tot9(kleuren[index]); //moet terug zetten
+            this.maak9KaartenVanKleur1tot9(kleuren[index]);
+            this.maak9KaartenVanKleur1tot9(kleuren[index]); //moet terug zetten
         }
 
         this.maakSpecialeKaarten("+2", "+2");
@@ -336,62 +347,7 @@ class Spel {
         this.maakSpecialeKaarten("skip", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>do_not_disturb_alt</i>");
         this.maakSpecialeKaarten("skip", "<i class='material-icons' style='font-size:42px; font-weight: bold; margin-top: 10%;'>do_not_disturb_alt</i>");
 
-        this.maakWildcarts("*+4", "+4");
         // this.maakWildcarts("*+4", "+4");
-        // this.maakWildcarts("*+4", "+4");
-        // this.maakWildcarts("*+4", "+4");
-        // this.maakWildcarts("*+4", "+4");
-        // this.maakWildcarts("*+4", "+4");
-        // this.maakWildcarts("*+4", "+4");
-        // this.maakWildcarts("*+4", "+4");
-        // this.maakWildcarts("*+4", "+4");
-        // this.maakWildcarts("*+4", "+4");
-        // this.maakWildcarts("*+4", "+4");
-        // this.maakWildcarts("*+4", "+4");
-        // this.maakWildcarts("*+4", "+4");
-
-        this.maakWildcarts("*", "");
-
-        // this.maakSpecialeKaarten("+2", "+2");
-        // this.maakSpecialeKaarten("+2", "+2");    this.maakSpecialeKaarten("+2", "+2");
-        // this.maakSpecialeKaarten("+2", "+2");    this.maakSpecialeKaarten("+2", "+2");
-        // this.maakSpecialeKaarten("+2", "+2");    this.maakSpecialeKaarten("+2", "+2");
-        // this.maakSpecialeKaarten("+2", "+2");    this.maakSpecialeKaarten("+2", "+2");
-        // this.maakSpecialeKaarten("+2", "+2");    this.maakSpecialeKaarten("+2", "+2");
-        // this.maakSpecialeKaarten("+2", "+2");    this.maakSpecialeKaarten("+2", "+2");
-        // this.maakSpecialeKaarten("+2", "+2");    this.maakSpecialeKaarten("+2", "+2");
-        // this.maakSpecialeKaarten("+2", "+2");    this.maakSpecialeKaarten("+2", "+2");
-        // this.maakSpecialeKaarten("+2", "+2");    this.maakSpecialeKaarten("+2", "+2");
-        // this.maakSpecialeKaarten("+2", "+2");    this.maakSpecialeKaarten("+2", "+2");
-        // this.maakSpecialeKaarten("+2", "+2");    this.maakSpecialeKaarten("+2", "+2");
-        // this.maakSpecialeKaarten("+2", "+2");    this.maakSpecialeKaarten("+2", "+2");
-        // this.maakSpecialeKaarten("+2", "+2");    this.maakSpecialeKaarten("+2", "+2");
-        // this.maakSpecialeKaarten("+2", "+2");    this.maakSpecialeKaarten("+2", "+2");
-        // this.maakSpecialeKaarten("+2", "+2");    this.maakSpecialeKaarten("+2", "+2");
-        // this.maakSpecialeKaarten("+2", "+2");    this.maakSpecialeKaarten("+2", "+2");
-        // this.maakSpecialeKaarten("+2", "+2");    this.maakSpecialeKaarten("+2", "+2");
-        // this.maakSpecialeKaarten("+2", "+2");
-
-        // this.maakWildcarts("*", "");
-        // this.maakWildcarts("*", "");
-        // this.maakWildcarts("*", "");
-        // this.maakWildcarts("*", "");
-        // this.maakWildcarts("*", "");
-        // this.maakWildcarts("*", "");
-        // this.maakWildcarts("*", "");
-        // this.maakWildcarts("*", "");
-        // // this.maakWildcarts("*", "");
-        // this.maakWildcarts("*", "");
-
-        // this.maakWildcarts("*", "");
-        // this.maakWildcarts("*", "");
-        // this.maakWildcarts("*", "");
-        // this.maakWildcarts("*", "");
-        // this.maakWildcarts("*", "");
-        // this.maakWildcarts("*", "");
-        // this.maakWildcarts("*", "");
-        // this.maakWildcarts("*", "");
-        // this.maakWildcarts("*", "");
         // this.maakWildcarts("*", "");
 
     }
