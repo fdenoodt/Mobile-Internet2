@@ -1,0 +1,20 @@
+{
+    "name": "UNO",
+    "short_name": "UNO",
+    "start_url": ".",
+    "orientation": "landscape",
+    "display": "fullscreen",
+    "icons": [
+        {
+            "src": "icons/lowres.png",
+            "sizes": "48x48",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/lowres2.png",
+            "sizes": "144x144",
+            "type": "image/png"
+        }
+    ]
+    
+}
