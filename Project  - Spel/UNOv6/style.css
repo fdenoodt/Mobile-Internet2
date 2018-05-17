@@ -102,14 +102,30 @@ body {
   color: black;
 }
 
-#controls button{
+
+
+#controls .btnMuziek{
   z-index: 20;
   position:  absolute;
   right: 0;
   bottom: 0;
   margin-right: 0.5%;
   margin-bottom: 0.5%; 
+  height: 2.5em;
 }
+
+#controls .btnReset{
+  
+  z-index: 20;
+  position:  absolute;
+  right: 0;
+  bottom: 0;
+  margin-right: 0.5%;
+  margin-bottom: calc(0.5% + 2.5em + 0.5%);  
+  height: 2.5em;
+  /* bottom: 400px; */
+}
+
 
 
 #kleurKiezer{

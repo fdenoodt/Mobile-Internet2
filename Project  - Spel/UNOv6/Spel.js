@@ -17,6 +17,7 @@ class Spel {
         this.uniekeId = 0;
         this.hoofdSpelerHeeftGelegd = false;
         this.audio = null;
+        this.mijnTimeout;
     }
 
     //*********************** Properties *************************
@@ -193,7 +194,7 @@ class Spel {
 
         if (this.wieAanDeBeurt != 0 || this.hoofdSpelerHeeftGelegd) {
             this.hoofdSpelerHeeftGelegd = false; //tijdelijk verplaatst
-            setTimeout(function () {
+            this.mijnTimeout = setTimeout(function () {
 
                 that.spelers[that.wieAanDeBeurt].heeftBeurtGelegd = false;
                 that.wieAanDeBeurt = that.kijkWieVolgendeIs();

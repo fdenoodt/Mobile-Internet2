@@ -16,9 +16,6 @@ class Muziek {
     }
     this.audio.muted = this.muziekMoetGemuteWorden();
 
-
-
-
     //liedje is 144 sec. ik weet niet hoe ik var kan oproepen. dus hard gecodeerd
     setTimeout(function () { that.play(); }, 144000);
   }
@@ -45,7 +42,7 @@ class Muziek {
   muziekMoetGemuteWorden() {
     let muteMuziek = localStorage.getItem("muteMuziek");
     console.log(muteMuziek + "mutez");
-    if (muteMuziek || null || undefined)
+    if (muteMuziek || muteMuziek == null || muteMuziek == undefined)
       return true;
     else
       return false;

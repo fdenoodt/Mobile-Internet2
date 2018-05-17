@@ -48,9 +48,13 @@
   <!-- terrein -->
   <div id="terrein">
     <div id="controls">
-      <button type="button" class="btn btn-danger" onclick="muziek.toggleMuziek()">
+      <button type="button" class="btn btn-success btnReset" onclick="maakSpelEnSpelers()">
+        <i id="btnReset" class="material-icons">replay</i>
+      </button>
+      <button type="button" class="btn btn-danger btnMuziek" onclick="muziek.toggleMuziek()">
         <i id="audio" class="material-icons">volume_up</i>
       </button>
+
     </div>
     <div id="terreinBot1"></div>
     <div id="terreinBot2"></div>
@@ -93,6 +97,15 @@
     var muziek;
     var animatie;
     function maakSpelEnSpelers() {
+      
+      if (spel != undefined) {
+        clearTimeout(spel.mijnTimeout);
+      }
+
+      spel = "";
+      muziek = "";
+      animatie = "";
+
       let hoofdSpeler = new Speler("Fab", "terreinHoofdSpeler", true);
       let bot1 = new Speler("Bot1", "terreinBot1", false);
       let bot2 = new Speler("Bot2", "terreinBot2", false);
@@ -101,11 +114,11 @@
       spel = new Spel(hoofdSpeler, bot1, bot2, bot3);
 
       animatie = new Animatie();
-      
+
       spel.start();
 
-      
-      
+
+
       muziek = new Muziek();
       muziek.play();
 
